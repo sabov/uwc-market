@@ -2,10 +2,48 @@
 <html>
     <head>
         <title>UWC Market</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="css/app.less" rel="stylesheet/less">
         <script data-main="js/main" src="js/lib/require.js"></script>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <header class="navbar">
+            <div class="navbar-inner">
+                 <a class="brand" href="#">UWC Market</a>
+                 <nav class="pull-right">
+                     <ul class="nav">
+                         <li class="active"><a href="#">Categories</a></li>
+                         <li><a href="#">Register</a></li>
+                         <li><a href="#">Log In</a></li>
+                     </ul>
+                 </nav>
+            </div>
+        </header>
+        <section class="container-fluid">
+            <section class="row-fluid">
+                <nav class="span3">
+                    <div class="well">
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Categories</li>
+                            <li class="active"><a href="#">Apple</a></li>
+                            <li><a href="#">Dell</a></li>
+                            <li><a href="#">Asus</a></li>
+                            <li><a href="#">Acer</a></li>
+                            <li><a href="#">Canon</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <section class="span9">
+                    <div class="well">
+                        <form class="form-search">
+                            <input type="text" class="input-large search-query">
+                            <button type="submit" class="btn">Search</button>
+                        </form>
+                    </div>
+                </section>
+            </section>
+        </section>
     </body>
 </html>
