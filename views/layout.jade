@@ -1,9 +1,24 @@
 doctype 5
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block header
-    block content
-    block footer
+    head
+      title=title
+      link(rel='stylesheet', href='/stylesheets/style.css')
+
+    body
+        block header
+            h1= __i.Hello
+            if (message)
+                p= message
+            if session.user != null
+                p Зашел как #{session.user}
+                    a(href='/session/destroy') &nbsp;logOut
+            else
+                a(href='/session') &nbsp;logIn
+                a(href='/session/registration') &nbsp;signUp
+
+        block content
+            h2 this is content block
+
+        block footer
+            h3 this is foo-footer
+
