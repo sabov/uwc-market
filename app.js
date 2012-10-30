@@ -54,7 +54,7 @@ function requireLogin(req, res, next) {
 }
 
 
-app.get('/', requireLogin, routes.index);
+app.get('/', routes.index);
 
 
 /* Sessions */
