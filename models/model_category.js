@@ -7,10 +7,11 @@ var mysql = require('../libs/mysql'),
 module.exports = (function () {
     var sql = {
         createCategory: 'INSERT INTO category() VALUES()',
-        createCategoryI18n: 'INSERT INTO category_i18n(category_id, language_id, name) VALUES(:category_id, :language_id, :name)',
-        deleteCategory: 'DELETE FROM category WHERE id = :category_id',
-        updateCategoryI18n: 'UPDATE category_i18n SET name = :name, language_id = :language_id, img_path = :img_path WHERE category_id = :category_id',
-        getCategoryI18nById: 'SELECT * FROM category_i18n WHERE id = :category_id'
+        createCategoryI18n: 'INSERT INTO category_i18n(category_id, language_id, name) VALUES(:id, :language_id, :name)',
+        deleteCategory: 'DELETE FROM category WHERE id = :id',
+        updateCategoryI18n: 'UPDATE category_i18n SET name = :name, language_id = :language_id, img_path = :img_path WHERE category_id = :id',
+        getCategoryI18nById: 'SELECT * FROM category_i18n WHERE id = :id',
+        getAllCategories: 'SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id)'
     };
 
     var _createCategoryI18n = function (params, callback) {
@@ -38,15 +39,16 @@ module.exports = (function () {
                 });
             });
         },
-        //params = {categoryId:''}
+        //params = {category_id:''}
         deleteCategory: function (params, callback) {
             mysql.query(sql.deleteCategory, params, function (res, fields) {
                 callback(res);
             });
         },
-        getCategoryById: function (params, callback) {
-            mysql.query(sql.getCategoryI18nById, params, function (res) {
-                callback(res[0]);
+        //params = {category_id:''}
+        getAllCategories: function (callback) {
+            mysql.query(sql.getAllCategories, function (res) {
+                callback(res);
             });
         }
     };
