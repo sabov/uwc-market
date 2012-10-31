@@ -7,7 +7,8 @@ var express = require('express')
   , routes = require('./routes')
   , session = require('./routes/session')
   , http = require('http')
-  , path = require('path');
+  , path = require('path')
+  , i18n = require('./config/i18n');
 
 
 var app = express();
@@ -26,24 +27,29 @@ app.configure(function () {
     app.use(express.session({store: MemStore({
         reapInterval:  6000 * 10
     })}));
+
+    app.use(function (req, res, next) {
+        res.locals.__i = i18n[req.session.lang || 'ua'];
+        res.locals.session = req.session;
+        res.locals.title = 'UWC Market';
+        res.locals.message = '';
+        next();
+    });
+
+
     app.use(app.router);
 });
 
-app.locals({
-    title: 'UWC Market',
-    version: 3
-});
-
-app.configure('development', function(){
+app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
 
-function requireLogin(req, res, next){
+function requireLogin(req, res, next) {
     if (req.session.user) {
         next();
     } else {
-        res.redirect('/session/create?redir=' + req.url);
+        res.redirect('/session/login_user?redir=' + req.url);
     }
 }
 
@@ -53,18 +59,17 @@ app.get('/', routes.index);
 
 /* Sessions */
 
-app.get('/session/create', function(req, res) {
-    res.render('session_create', {
-        redir: req.query.redir
-    });
-});
+app.get('/session/login_user', session.loginUser);
+
+app.post('/session/do_login_user', session.doLoginUser);
+
+app.get('/session/logout_user', session.logoutUser);
+
+app.get('/session/registration', session.registration);
+
+app.post('/session/do_registration', session.doRegistration);
 
 
-app.post('session/new', function(req, res) {
-    
-});
-
-
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
+http.createServer(app).listen(app.get('port'), function () {
+    console.log("Express server listening on port " + app.get('port'));
 });
