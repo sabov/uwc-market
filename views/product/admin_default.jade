@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+    h3 categorylist
+    ul
+        each category in categories
+            li
+                a(href='#{'/admin/product/category/' + category.category_id}', class='a') bla
+            if category.makers != undefined
+                ol
+                    each maker in category.makers
+                        li
+                            a(href='#{'/admin/product/category/' + category.category_id + '/maker/' + maker.maker_id}', class='a')=maker.name
+    h2 ProductList
+    ol
+        each product in products
+            li
+                a(href='#{'/admin/product/' + product.product_id }')=product.title
+
+    form(action='/admin/product', method="POST")
+        input(type="submit")

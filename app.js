@@ -1,15 +1,11 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , routes = require('./routes')
   , session = require('./routes/session')
+  , product = require('./routes/product')
   , http = require('http')
   , path = require('path')
+  , dbConstants = require('./config/dbConstants')
   , i18n = require('./config/i18n');
-
 
 var app = express();
 
@@ -27,23 +23,22 @@ app.configure(function () {
     app.use(express.session({store: MemStore({
         reapInterval:  6000 * 10
     })}));
-
     app.use(function (req, res, next) {
-        res.locals.__i = i18n[req.session.lang || 'ua'];
+        res.locals.__i = i18n[req.session.lang_id || dbConstants.UA_ID];
         res.locals.session = req.session;
         res.locals.title = 'UWC Market';
         res.locals.message = '';
+        req.body.language_id = req.body.language_id || req.session.lang_id || dbConstants.UA_ID;
         next();
     });
 
-
+    app.use(express.static(__dirname + '/public'));
     app.use(app.router);
 });
 
 app.configure('development', function () {
   app.use(express.errorHandler());
 });
-
 
 function requireLogin(req, res, next) {
     if (req.session.user) {
@@ -53,9 +48,27 @@ function requireLogin(req, res, next) {
     }
 }
 
-
 app.get('/', routes.index);
 
+                /* ADMIN */
+/* Product */
+
+
+
+app.get('/admin/product', product.default);
+app.post('/admin/product', product.create);
+
+app.get('/admin/product/:product_id', product.edit);
+app.post('/admin/product/:product_id', product.update);
+
+app.get('/admin/product/category/:category_id', product.category);
+app.get('/admin/product/category/:category_id/maker/:maker_id', product.categoryAndMaker);
+
+
+//app.get('/admin/product/delete/:product_id', product.delete);
+
+
+/**/
 
 /* Sessions */
 
@@ -68,6 +81,7 @@ app.get('/session/logout_user', session.logoutUser);
 app.get('/session/registration', session.registration);
 
 app.post('/session/do_registration', session.doRegistration);
+
 
 
 http.createServer(app).listen(app.get('port'), function () {

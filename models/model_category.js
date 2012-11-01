@@ -11,7 +11,8 @@ module.exports = (function () {
         deleteCategory: 'DELETE FROM category WHERE id = :id',
         updateCategoryI18n: 'UPDATE category_i18n SET name = :name, language_id = :language_id, img_path = :img_path WHERE category_id = :id',
         getCategoryI18nById: 'SELECT * FROM category_i18n WHERE id = :id',
-        getAllCategories: 'SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id)'
+        getAllCategories: 'SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id)',
+        getAllCategoryI18n: 'SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id) WHERE category_i18n.language_id = :language_id'
     };
 
     var _createCategoryI18n = function (params, callback) {
@@ -48,6 +49,11 @@ module.exports = (function () {
         //params = {category_id:''}
         getAllCategories: function (callback) {
             mysql.query(sql.getAllCategories, function (res) {
+                callback(res);
+            });
+        },
+        getAllCategoryI18n: function (params, callback) {
+            mysql.query(sql.getAllCategoryI18n, params, function (res) {
                 callback(res);
             });
         }
