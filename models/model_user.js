@@ -11,7 +11,6 @@ module.exports = (function () {
         createUser: 'INSERT INTO user (login, password, language_id) VALUES ($1, $2, $3)'
     };
 
-
     var _getUserByLogin = function (login, callback) {
         mysql.query(sql.getUserByLogin, [login], function (res, fields) {
             if (!res.length) {
@@ -28,7 +27,6 @@ module.exports = (function () {
         });
     };
 
-
     var _isLoginExist = function (login, callback) {
         _getUserByLogin(login, function (res) {
             console.log(res);
@@ -39,8 +37,6 @@ module.exports = (function () {
             }
         });
     };
-
-
 
     return {
         getLanguageName: function (login, callback) {
@@ -105,4 +101,3 @@ module.exports = (function () {
         }
     };
 })();
-
