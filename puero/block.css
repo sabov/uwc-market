@@ -3,6 +3,7 @@
 	width: 300px;
 	height: 200px;
 	z-index: 1;
+	overflow: hidden;
 }
 .good_wrapper .good_layout{
 	z-index: 3;
@@ -15,19 +16,31 @@
 	position: absolute;
 	top: 50%;
 }
-.good_wrapper .good_layout .left_arrow img{
+.good_wrapper .good_layout .left_arrow .left{
 	position: relative;
 	margin-top: -23px;
+	width: 23px;
+	height: 46px;
+	background: url(img/left.png);
+}
+.good_wrapper .good_layout .left_arrow .left:hover{
+	background: url(img/left_active.png);
 }
 .good_wrapper .good_layout .right_arrow{
 	position: absolute;
 	top: 50%;
 	left: 100%;
 }
-.good_wrapper .good_layout .right_arrow img{
+.good_wrapper .good_layout .right_arrow .right{
 	position: relative;
 	margin-top: -23px;
 	margin-left: -23px;
+	width: 23px;
+	height: 46px;
+	background: url(img/right.png);
+}
+.good_wrapper .good_layout .right_arrow .right:hover{
+	background: url(img/right_active.png);
 }
 .good_wrapper .good_layout .good_description{
 	position: absolute;
@@ -52,6 +65,7 @@
 }
 .good_wrapper .good ul li{
 	display: inline-block;
+	margin: 0;
 }
 .good_wrapper .good ul li img{
 	width: 100%;
