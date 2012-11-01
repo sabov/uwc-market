@@ -47,9 +47,11 @@
 .good_wrapper .good ul{
 	height: 100%;
 	list-style: none;
+	overflow: hidden;
+	margin: 0;
 }
 .good_wrapper .good ul li{
-	float: left;
+	display: inline-block;
 }
 .good_wrapper .good ul li img{
 	width: 100%;
