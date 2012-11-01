@@ -1,0 +1,59 @@
+.good_wrapper{
+	position: relative;
+	width: 300px;
+	height: 200px;
+	z-index: 1;
+}
+.good_wrapper .good_layout{
+	z-index: 3;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.good_wrapper .good_layout .left_arrow{
+	position: absolute;
+	top: 50%;
+}
+.good_wrapper .good_layout .left_arrow img{
+	position: relative;
+	margin-top: -23px;
+}
+.good_wrapper .good_layout .right_arrow{
+	position: absolute;
+	top: 50%;
+	left: 100%;
+}
+.good_wrapper .good_layout .right_arrow img{
+	position: relative;
+	margin-top: -23px;
+	margin-left: -23px;
+}
+.good_wrapper .good_layout .good_description{
+	position: absolute;
+	width: 100%;
+	height: 30%;
+	top: 100%;
+	background: rgba(13,13,13,0.5);
+	color: white;
+}
+.good_wrapper .good{
+	z-index: 2;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.good_wrapper .good ul{
+	height: 100%;
+	list-style: none;
+	overflow: hidden;
+	margin: 0;
+}
+.good_wrapper .good ul li{
+	display: inline-block;
+}
+.good_wrapper .good ul li img{
+	width: 100%;
+	height: 100%;
+}
