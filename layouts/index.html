@@ -2,47 +2,51 @@
 <html>
     <head>
         <title>UWC Market</title>
-        <link href="css/modern.css" rel="stylesheet">
-        <link href="css/modern-responsive.css" rel="stylesheet">
-        <link href="css/app.less" rel="stylesheet/less">
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="css/app.less?3" rel="stylesheet/less">
         <script data-main="js/main" src="js/lib/require.js"></script>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     </head>
-    <body class="page with-sidebar">
-        <header class="page-header">
-          <div class="navigation-bar">
-            <div class="navigation-bar-inner">
-              <div class="brand">
-                 <a class="name" href="#">UWC Market</a>
-              </div>
-                   <ul class="">
-                       <li class=""><a href="#">Categories</a></li>
-                       <li><a href="#">Register</a></li>
-                       <li><a href="#">Log In</a></li>
-                   </ul>
-            </div>
-          </div>
-        </header>
-            <section class="page-sidebar">
-                <ul class="">
-                    <li class="nav-header">Categories</li>
-                    <li class="active"><a href="#">Apple</a></li>
-                    <li><a href="#">Dell</a></li>
-                    <li><a href="#">Asus</a></li>
-                    <li><a href="#">Acer</a></li>
-                    <li><a href="#">Canon</a></li>
-                </ul>
-            </section>
-            <section class="page-region">
-                <div class="page-region-content">
-                <form class="hero-unit">
-                    <div class="place-left input-control text span10" style="">
-                      <input type="text" />
-                      <span class="helper"></span>
-                    </div>
-                    <button type="submit" style="margin-left:10px">Search</button>
-                </form>
+    <body>
+        <header class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                     <a class="brand" href="#">UWC Market</a>
+                     <nav class="pull-right">
+                         <ul class="nav">
+                             <li class="active"><a href="#">Categories</a></li>
+                             <li><a href="#">Register</a></li>
+                             <li><a href="#">Log In</a></li>
+                         </ul>
+                     </nav>
                 </div>
+            </div>
+        </header>
+        <section class="container">
+            <section class="row">
+                <nav class="span3">
+                    <div class="well sidebar-holder">
+                        <form class="form-search">
+                            <input placeholder="Search" type="text" class="search-query">
+                        </form>
+                        <ul class="nav nav-list">
+                            <li class="nav-header">Categories</li>
+                            <li class="active"><a href="#">Apple</a></li>
+                            <li><a href="#">Dell</a></li>
+                            <li><a href="#">Asus</a></li>
+                            <li><a href="#">Acer</a></li>
+                            <li><a href="#">Canon</a></li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="block span3"></div>
+                <div class="block span3"></div>
+                <div class="block span3"></div>
+                <div class="block span3"></div>
+                <div class="block span3"></div>
+                <div class="block span3"></div>
             </section>
+        </section>
     </body>
 </html>

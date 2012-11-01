@@ -5,6 +5,7 @@ require.config({
         underscore : '/js/lib/underscore',
         bootstrap  : '/js/lib/bootstrap',
         less       : '/js/lib/less-1.3.1.min',
+        dropdown   : '/js/lib/dropdown',
 
         /*    Application    */
         config : '/js/app/config',
@@ -19,8 +20,12 @@ require.config({
             deps : [
                 'bootstrap',
                 'underscore',
+                'dropdown',
                 'config'
             ]
+        },
+        dropdown : {
+            deps : ['jquery']
         },
         config : {
             deps : ['less']

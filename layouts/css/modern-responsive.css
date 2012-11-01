@@ -259,6 +259,21 @@
   .offset12 {
     margin-left: 744px;
   }
+
+}
+/*
+ * Metro UI CSS v 0.1.4
+ * Copyright 2012 Sergey Pimenov
+ * Licensed under the MIT Lilcense
+ *
+ * responsive.less
+ */
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  body {
+    padding-right: 10px;
+    padding-left: 10px !important;
+  }
   .navigation-bar .navigation-bar-inner .menu-pull {
     display: block;
   }
@@ -284,20 +299,6 @@
     position: relative;
     width: 100%;
     border: 0;
-  }
-}
-/*
- * Metro UI CSS v 0.1.4
- * Copyright 2012 Sergey Pimenov
- * Licensed under the MIT Lilcense
- *
- * responsive.less
- */
-/* Landscape phone to portrait tablet */
-@media (max-width: 767px) {
-  body {
-    padding-right: 10px;
-    padding-left: 10px !important;
   }
   [class*="span"],
   .hero-unit {
