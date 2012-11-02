@@ -20,16 +20,10 @@ var _prepareToRu = function (params) {
 };
 
 var _updateProductWithI18n = function (params, callback) {
-    console.log('1');
-    console.log(params);
     product.updateProduct(params, function (productId) {
         params = _prepareToUa(params);
-        console.log('2');
-        console.log(params);
         product.updateProductI18n(params, function (result) {
             params = _prepareToRu(params);
-            console.log('3');
-            console.log(params);
             product.updateProductI18n(params, function (result) {
                 callback(result);
             });
@@ -48,17 +42,18 @@ var _createProductWithI18n = function (params, callback) {
             });
         });
     });
-}
+};
 
-var _combineI18nProducts = function(products) {
-    var productForView = products[0],
+//combine ru and ua version of product, for back office view
+var _combineI18nProducts = function (products) {
+    var hybridProduct = products[0],
         isRuI18n = (products[0].language_id && dbConstants.RU_ID);
-        productForView.title_ru = isRuI18n ? products[0].title : products[1].title;
-        productForView.description_ru = isRuI18n ? products[0].description : products[1].description;
-        productForView.title_ua = isRuI18n ? products[1].title : products[0].title;
-        productForView.description_ua = isRuI18n ? products[1].description : products[0].description;
-    return productForView;
-}
+    hybridProduct.title_ru = isRuI18n ? products[0].title : products[1].title;
+    hybridProduct.description_ru = isRuI18n ? products[0].description : products[1].description;
+    hybridProduct.title_ua = isRuI18n ? products[1].title : products[0].title;
+    hybridProduct.description_ua = isRuI18n ? products[1].description : products[0].description;
+    return hybridProduct;
+};
 
 var _mapCategoriesAndMakers = function (category, callback) {
     var params = {
@@ -89,7 +84,6 @@ var _getProductI18nByCategoryId = function (params, callback) {
         callback(result);
     });
 }
-
 
 module.exports = {
     default: function (req, res) {
