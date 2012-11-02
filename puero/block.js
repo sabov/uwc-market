@@ -58,12 +58,12 @@ var goods = (function () {
             }
         });
         rightArrow.on('click', function () {
-            totalSetWidth(ul, li, {ulWidth: params.width, blockWidth: blockWidth }, params.transitionTime);
+            totalSetWidth(ul, li, {ulWidth: params.width, blockWidth: blockWidth });
             if(current === ulLength) {
                 return false;
             } else {
                 current += 1;
-                ul.animate({'margin-left': '-=' + blockWidth});
+                ul.animate({'margin-left': '-=' + blockWidth}, params.transitionTime);
             }
         });
     };
