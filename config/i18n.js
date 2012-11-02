@@ -1,8 +1,8 @@
 module.exports = {
-    ru: {
+    1: {
         Hello: 'Привет'
     },
-    ua: {
+    2: {
         Hello: 'Вiтаю'
     }
 };

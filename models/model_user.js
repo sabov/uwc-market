@@ -45,7 +45,7 @@ module.exports = (function () {
                     if (res.length) {
                         callback({
                             success: true,
-                            data: res[0].name
+                            data: res[0]
                         });
                     } else {
                         callback({

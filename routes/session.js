@@ -7,14 +7,14 @@ var mysql = require('../libs/mysql'),
     dbConstants = require('../config/dbConstants');
 
 var _loginUser = function (req, res, data) {
-    user.getLanguageName(data.login, function (result) {
-
+    user.getLanguageName(data.login, function (lang) {
         if (!result.success) {
-            req.session.lang = dbConstants.UA_ID;
+            req.session.lang_id = dbConstants.UA_ID;
+            req.session.lang = dbConstants.UA_LANG_NAME;
         } else {
-            req.session.lang = result.data;
+            req.session.lang_id = result.lang.id;
+            req.session.lang = result.lang.name;
         }
-
         req.session.user = data.login;
         req.session.role = data.role;
         res.redirect(req.body.redir || '/');
@@ -22,7 +22,7 @@ var _loginUser = function (req, res, data) {
 };
 
 exports.registration = function (req, res) {
-    res.render('session_registration');
+    res.render('session/registration');
 };
 
 exports.doRegistration = function (req, res) {
@@ -31,7 +31,7 @@ exports.doRegistration = function (req, res) {
 
     user.createUser(login, password, function (result) {
         if (!result.success) {
-            res.render('session_registration', {
+            res.render('session/registration', {
                 message: result.message
             });
             return;
@@ -46,13 +46,13 @@ exports.doLoginUser = function (req, res) {
 
     user.getUserByLoginAndPassword(login, password, function (result) {
         if (!result.success) {
-            res.render('session_login', {
+            res.render('session/login', {
                 message: result.message,
                 redir: req.body.redir || '/'
             });
             return;
         }
-        _loginUser(req, res, result.data[0])
+        _loginUser(req, res, result.data[0]);
     });
 };
 
@@ -60,7 +60,7 @@ exports.loginUser = function (req, res) {
     if (req.session.user) {
         res.redirect('/');
     }
-    res.render('session_login', {
+    res.render('session/login', {
         redir: req.query.redir
     });
 };
