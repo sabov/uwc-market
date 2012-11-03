@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>UWC Market</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="css/app.less?4" rel="stylesheet/less">
+        <script data-main="js/main" src="js/lib/require.js"></script>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <header class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container">
+                     <a class="brand" href="#">UWC Market</a>
+                     <nav class="pull-right">
+                         <ul class="nav">
+
+                             <!-- After login part -->
+                             <!-- ==================================== -->
+
+                             <li><span class="username">Alexandr Sabov</span></li>
+                             <li class="divider-vertical"></li>
+                             <li><a href="#">Log Out</a></li>
+
+                             <!-- ==================================== -->
+
+                             <!-- Before login part -->
+                             <!-- ==================================== -->
+                             <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Registration
+                                    <b class="caret"></b>
+                                </a>
+                                <div class="dropdown-menu pull-right" style="margin-right:80px">
+                                    <form action="" class="form-vertical login-form">
+                                        <div class="control-group">
+                                            <label class="control-label">Username:</label>
+                                            <div class="controls">
+                                                <input type="text" name="username" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Password:</label>
+                                            <div class="controls">
+                                                <input type="password" name="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <button type="submit" class="btn btn-primary">Register</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                             </li>
+                             <li>
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Log In
+                                    <b class="caret"></b>
+                                </a>
+                                <div class="dropdown-menu pull-right">
+                                    <form action="" class="form-vertical login-form">
+                                        <div class="control-group">
+                                            <label class="control-label">Username:</label>
+                                            <div class="controls">
+                                                <input type="text" name="username" placeholder="Username">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <label class="control-label">Password:</label>
+                                            <div class="controls">
+                                                <input type="password" name="password" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="control-group">
+                                            <div class="controls">
+                                                <label class="checkbox">
+                                                <input type="checkbox"> Remember me
+                                                </label>
+                                                <button type="submit" class="btn btn-primary">Sign in</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                             </li>
+                             <!-- ==================================== -->
+
+                         </ul>
+                     </nav>
+                </div>
+            </div>
+        </header>
+        <section class="container">
+            <section class="row item-edit">
+                <form class="form-horizontal">
+                  <fieldset>
+                    <legend>New Item</legend>
+                        <div class="control-group">
+                            <label class="control-label">Name</label>
+                            <div class="controls">
+                                <input type="text" >
+                            </div>
+                        </div>
+                        <div class="control-group error">
+                            <label class="control-label">Name</label>
+                            <div class="controls">
+                                <input type="text" >
+                                <span class="help-inline">Error message</span>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label">Name</label>
+                            <div class="controls">
+                                <textarea id="" name="textarea" ></textarea>
+                                <span class="help-block">
+                                    <i class="icon-info-sign"></i>
+                                    <em>Enter a value in the format "key: value", separate the pair with line breaks</em>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn">Cancel</button>
+                        </div>
+                  </fieldset>
+                </form>
+            </section>
+        </section>
+    </body>
+</html>
