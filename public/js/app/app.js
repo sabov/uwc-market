@@ -9,8 +9,10 @@
 
 jQuery(function () {
     var _asignValidator = function () {
-        var loginForm = $('form.login'),
+        var loginForm    = $('form.login'),
             registerForm = $('form.register'),
+            productForm  = $('form.product-form'),
+
             params = {
                 rules: {
                     username: {
@@ -28,6 +30,7 @@ jQuery(function () {
             };
         loginForm.validate(params);
         registerForm.validate(params);
+        productForm.validate();
     };
     _asignValidator();
 });

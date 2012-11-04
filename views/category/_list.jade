@@ -25,7 +25,6 @@ block content
               each category in categories
                 tr
                   td
-                    a(href='')= category.name
-                  td
+                    a(href='#{'/category/update/'+ category.category_id}')= category.name
                   td.table-item-delete
                     a(href='#{'/' + name + '/delete/' + category.category_id }') ×

@@ -3,62 +3,63 @@ extends ../layout
 block content
     section.container
       section.row.item-edit
-        form.form-horizontal(action='#{'/' + params.product_id}', method='POST',  enctype='multipart/form-data')
-          fieldset
-            legend= __i.NewProduct
-            .control-group
-              label.control-label= __i.Category
-              .controls
-                select(name='category_id')
-                  each category in categories
-                    if product.category_id == category.id
-                      option(selected=true, value= category.category_id)= category.name
-                    else
-                      option(value= category.category_id)= category.name
-            .control-group
-              label.control-label= __i.Maker
-              .controls
-                select(name='maker_id')
-                    each maker in makers
-                        if product.maker_id == maker.id
-                            option(selected=true, value= maker.id)= maker.name
-                        else
-                            option(value= maker.id)= maker.name
-            .control-group
-              label.control-label= __i.Amount
-              .controls
-                input(type='text', name='amount', value=product.amount)
-            .control-group
-              label.control-label=__i.Title
-                | &nbspRU
-              .controls
-                input(type='text', name='title_ru', value= product.title_ru)
-            .control-group
-              label.control-label=__i.Title
-                | &nbspUA
-              .controls
-                input(type='text', name='title_ua', value= product.title_ua)
-            .control-group
-              label.control-label=__i.Description
-                | &nbspRU
-              .controls
-                input(type='text', name='description_ru', value= product.description_ru)
-            .control-group
-              label.control-label=__i.Description
-                | &nbspUA
-              .controls
-                input(type='text', name='description_ua', value= product.description_ua)
-            .control-group
-              label.control-label=__i.Images
-              .controls
-                input(type='file', name='images', multiple="")
-            .control-group
-              label.control-label= __i.Params
-              .controls
-                textarea(type='textarea', name='params')= product.params
-                span.help-block
-                  i.icon-info-sign
-                  em= __i.info
-            .form-actions
-              input.btn.btn-primary(type='submit', value=__i.Save)
-              input.btn.btn-danger(type='button', value=__i.Delete)
+        .span12
+          form.product-form.form-horizontal(action='#{'/' + params.product_id}', method='POST',  enctype='multipart/form-data')
+            fieldset
+              legend= __i.NewProduct
+              .control-group
+                label.control-label= __i.Category
+                .controls
+                  select(name='category_id')
+                    each category in categories
+                      if product.category_id == category.id
+                        option(selected=true, value= category.category_id)= category.name
+                      else
+                        option(value= category.category_id)= category.name
+              .control-group
+                label.control-label= __i.Maker
+                .controls
+                  select(name='maker_id')
+                      each maker in makers
+                          if product.maker_id == maker.id
+                              option(selected=true, value= maker.id)= maker.name
+                          else
+                              option(value= maker.id)= maker.name
+              .control-group
+                label.control-label= __i.Amount
+                .controls
+                  input.required(type='text', name='amount', value=product.amount)
+              .control-group
+                label.control-label=__i.Title
+                  | &nbspRU
+                .controls
+                  input.required(type='text', name='title_ru', value= product.title_ru)
+              .control-group
+                label.control-label=__i.Title
+                  | &nbspUA
+                .controls
+                  input.required(type='text', name='title_ua', value= product.title_ua)
+              .control-group
+                label.control-label=__i.Description
+                  | &nbspRU
+                .controls
+                  input.required(type='text', name='description_ru', value= product.description_ru)
+              .control-group
+                label.control-label=__i.Description
+                  | &nbspUA
+                .controls
+                  input.required(type='text', name='description_ua', value= product.description_ua)
+              .control-group
+                label.control-label=__i.Images
+                .controls
+                  input.required(type='file', name='images', multiple="")
+              .control-group
+                label.control-label= __i.Params
+                .controls
+                  textarea(type='textarea', name='params')= product.params
+                  span.help-block
+                    i.icon-info-sign
+                    em= __i.info
+              .form-actions
+                input.btn.btn-primary(type='submit', value=__i.Save, style="margin-right:4px")
+                input.btn.btn-danger(type='button', value=__i.Delete)
