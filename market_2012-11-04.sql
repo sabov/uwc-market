@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.28-log)
 # Database: market
-# Generation Time: 2012-11-04 15:46:36 +0000
+# Generation Time: 2012-11-04 21:47:02 +0000
 # ************************************************************
 
 
@@ -35,8 +35,9 @@ LOCK TABLES `category` WRITE;
 
 INSERT INTO `category` (`id`)
 VALUES
-	(8),
-	(9);
+	(13),
+	(14),
+	(15);
 
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -64,10 +65,12 @@ LOCK TABLES `category_i18n` WRITE;
 
 INSERT INTO `category_i18n` (`id`, `category_id`, `language_id`, `name`)
 VALUES
-	(73,8,2,'Телевiзори'),
-	(74,8,1,'Телевизоры'),
-	(75,9,2,'Рибвльстао'),
-	(76,9,1,'Рыбалка');
+	(83,13,2,'Телефони'),
+	(84,13,1,'Телефоны'),
+	(85,14,2,'Ноутбуки'),
+	(86,14,1,'Ноутбуки'),
+	(87,15,2,'Одяг'),
+	(88,15,1,'Одежда');
 
 /*!40000 ALTER TABLE `category_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -112,8 +115,11 @@ LOCK TABLES `maker` WRITE;
 
 INSERT INTO `maker` (`id`, `name`)
 VALUES
-	(5,'Samsung'),
-	(6,'Nokia');
+	(25,'Nokia'),
+	(26,'Apple'),
+	(27,'Adidas'),
+	(29,'Puma'),
+	(30,'Nike');
 
 /*!40000 ALTER TABLE `maker` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -142,7 +148,11 @@ LOCK TABLES `product` WRITE;
 
 INSERT INTO `product` (`id`, `category_id`, `amount`, `maker_id`, `price`)
 VALUES
-	(5,8,0,5,NULL);
+	(2,13,NULL,26,NULL),
+	(3,13,NULL,25,NULL),
+	(4,13,NULL,26,NULL),
+	(10,15,NULL,27,NULL),
+	(11,15,NULL,30,NULL);
 
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -172,8 +182,16 @@ LOCK TABLES `product_i18n` WRITE;
 
 INSERT INTO `product_i18n` (`id`, `product_id`, `language_id`, `title`, `description`, `params`)
 VALUES
-	(13,5,2,'asdasd','',''),
-	(14,5,1,'asdsaasd','','');
+	(51,2,1,'IPhone 5','5 поколение','Memory:2GB\r\nDisplay:5inc\r\nMaterial:iron\r\nOS: iOS\r\nGood:Luck'),
+	(52,2,2,'IPhone 5','5  поколiiня','Memory:2GB\r\nDisplay:5inc\r\nMaterial:iron\r\nOS: iOS\r\nGood:Luck'),
+	(53,3,1,'Lumia N900','Новый ультрасовременный телефон от Nokia','Memory:2GB\r\nDisplay:5inc\r\nMaterial:iron\r\nOS: iOS\r\nGood:Luck'),
+	(54,3,2,'Lumia N900','Новий ультрасучасний телефон вiд Nokia','Memory:2GB\r\nDisplay:5inc\r\nMaterial:iron\r\nOS: iOS\r\nGood:Luck'),
+	(55,4,1,'IPhone 3gs','Хiпстерский айфончик',''),
+	(56,4,2,'IPhone 3gs','Хипстерский айфончик',''),
+	(67,10,2,'Кросiвки','Кросiвки',''),
+	(68,10,1,'Кросовки','Кросовки',''),
+	(69,11,2,'Кросiвки','Кросiвки',''),
+	(70,11,1,'Кросовки','Кросовки','');
 
 /*!40000 ALTER TABLE `product_i18n` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -198,9 +216,18 @@ LOCK TABLES `product_image` WRITE;
 
 INSERT INTO `product_image` (`id`, `product_id`, `image_name`)
 VALUES
-	(1,5,'66113e02049b2bb8e615b7a45d8eef8cpopup-close-grey.png'),
-	(2,5,'66113e02049b2bb8e615b7a45d8eef8cpopup-close-grey.png'),
-	(3,5,'66113e02049b2bb8e615b7a45d8eef8cpopup-close-grey.png');
+	(20,2,'873ae040ac5489795fd3c58bbbc6daa6iphone-5-2012-09-14-600-1.jpg'),
+	(21,2,'303211b8356a4b32fd8f80b344973d0ciphone-5-2012-09-14-600-20.jpg'),
+	(22,2,'57cb33274b3a32e84f319d0e44ca8d6ciphone-5-2012-09-14-600-21.jpg'),
+	(23,4,'124f50dbcc4ee0e6f5be93d475c182922009-08-20iphonehd.jpg'),
+	(24,4,'d0e9de547d9d1153438d2ce766bd146biphone-3gs-supreme-1.jpg'),
+	(25,3,'a8db96c9f7313738cc2deb8b36e58c71nokia-lumia-920-black_2.jpeg'),
+	(26,3,'a3802573ce99b6776b8c92c8abc3bfeanokia-lumia-920-white_1.jpeg'),
+	(27,3,'610943cc861120d78f897dcb723bb88dnokia-lumia-920-yellow_1.jpeg'),
+	(39,10,'65b75cc40b6806cd12cf3330d1318d2aadidas-ivano-frankovsk_rev002.jpg'),
+	(40,10,'d6fc3fb98238460704be9b92998fd291krosvki-gucci-ternopol.jpg'),
+	(41,11,'1ac3b402f73730d4eae6561a89d917f2Adidas_Marathon_10_Womens_03_b11853.jpg'),
+	(42,11,'15f2c3c35d86d404a70845697d3e2679Adidas_Titan_Bounce_02_b11835.jpg');
 
 /*!40000 ALTER TABLE `product_image` ENABLE KEYS */;
 UNLOCK TABLES;
