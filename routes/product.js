@@ -57,7 +57,7 @@ var _combineI18nProducts = function (products) {
         return;
     }
     var hybridProduct = products[0],
-        isRuI18n = (products[0].language_id && dbConstants.RU_ID);
+        isRuI18n = (products[0].language_id == dbConstants.RU_ID);
     hybridProduct.title_ru = isRuI18n ? products[0].title : products[1].title;
     hybridProduct.description_ru = isRuI18n ? products[0].description : products[1].description;
     hybridProduct.title_ua = isRuI18n ? products[1].title : products[0].title;
@@ -168,7 +168,6 @@ var actions = {
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products)
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -187,7 +186,6 @@ var actions = {
     },
 
     delete: function (req, res) {
-        console.log(req.route.params);
         modelProduct.deleteProduct({product_id: req.route.params.product_id}, function () {
             res.redirect('back');
         });

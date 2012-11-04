@@ -3,13 +3,12 @@ var i18n = (function () {
         UA_ID = 2;
     var Langs = {
         1: {//ru
-            'hello' : 'prevet'
+            'required' : 'Обязательное поле'
         },
         2: {//ua
-            'hello' : 'privit'
+            'required' : 'Обов\'язкове поле'
         }
     };
-    console.log($.cookie("language_id"));
     var language_id = $.cookie("language_id") || UA_ID;
     return Langs[language_id];
 })();

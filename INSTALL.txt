@@ -22,7 +22,8 @@
 
 6. admina можно зарегистрировать как простого юзера и установить  знаение поля role в таблице user в 'admin'
 
-6. Запустить сервер:
+7. Запустить сервер:
 	cd uwc-market
 	node app
 
+production будет тут http://market.incubus.univ.kiev.ua

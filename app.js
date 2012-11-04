@@ -67,7 +67,7 @@ app.post('/category/update/:category_id', secure, category.update);
 app.get('/maker', secure, maker.list);
 app.post('/maker', secure, maker.create);
 app.get('/maker/delete/:maker_id', secure, maker.delete);
-app.get('/maker/update/:maker_id', secure, maker.edit);
+app.get('/maker/edit/:maker_id', secure, maker.edit);
 app.post('/maker/update/:maker_id', secure, maker.update);
 
 /* Product */

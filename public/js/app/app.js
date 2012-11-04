@@ -6,7 +6,6 @@
     });
 })();
 
-
 jQuery(function () {
     var _asignValidator = function () {
         var loginForm    = $('form.login'),
@@ -33,4 +32,10 @@ jQuery(function () {
         productForm.validate();
     };
     _asignValidator();
+
+    $.extend($.validator.messages, {
+        required : i18n.required,
+    });
 });
+
+
