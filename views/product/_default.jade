@@ -3,39 +3,20 @@ extends ../layout
 block content
   section.container
     section.row
-      nav.span3
-        .well.sidebar-holder
-          form.form-search
-            input.search-query(placeholder= __i.Search, type='text')
-          ul.nav.nav-list
-            li.nav-header= __i.Categories
-            if categories
-              each category in categories
-                if category.category_id == params.category_id
-                  li.active
-                    a(href='#{'/category/' + category.category_id}')= category.name
-                else
-                  li
-                    a(href='#{'/category/' + category.category_id}')= category.name
-            li.divider
-            li.nav-header= __i.Makers
-            if categories
-              each category in categories
-                if category.category_id == params.category_id
-                  each maker in category.makers
-                    if maker.maker_id == params.maker_id
-                      li.active
-                        a(href='#')= maker.name
-                    else
-                      li
-                        a(href='#{'/category/' + category.category_id + '/maker/' + maker.maker_id}')= maker.name
+      include ../sidebar
       section.span9
         if products
         each product in products
           if session.role == 'admin'
             .block
+              if product.images
               a(href='#{'/product/delete/' + product.product_id}') x
-              a(href='#{'/' + product.product_id}') Edit
+              br
+              a(href='#{'/product/edit/' + product.product_id}') Edit
+              br
+              a(href='#{'/' + product.product_id}') Show
           else
             .block
-
+              if product.images
+                img(src="#{'/img/products/' + product.images[0].image_name}")
+                a(href='#{'/' + product.product_id}') Show

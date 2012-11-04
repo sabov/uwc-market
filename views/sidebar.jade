@@ -1,0 +1,26 @@
+nav.span3
+  .well.sidebar-holder
+    form.form-search
+      input.search-query(placeholder= __i.Search, type='text')
+    ul.nav.nav-list
+      li.nav-header= __i.Categories
+      if categories
+        each category in categories
+          if category.category_id == params.category_id
+            li.active
+              a(href='#{'/category/' + category.category_id}')= category.name
+          else
+            li
+              a(href='#{'/category/' + category.category_id}')= category.name
+      li.divider
+      if categories
+        each category in categories
+          if category.category_id == params.category_id
+            li.nav-header= __i.Makers
+            each maker in category.makers
+              if maker.maker_id == params.maker_id
+                li.active
+                  a(href='#')= maker.name
+              else
+                li
+                  a(href='#{'/category/' + category.category_id + '/maker/' + maker.maker_id}')= maker.name

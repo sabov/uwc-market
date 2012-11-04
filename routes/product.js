@@ -4,6 +4,7 @@ var user = require('../models/model_user'),
     maker = require('../models/model_maker'),
     async = require('async'),
     fs = require('fs'),
+    extend = require('xtend');
     category = require('../models/model_category'),
     dbConstants = require('../config/dbConstants');
 
@@ -89,7 +90,7 @@ var _getProductI18nByCategoryId = function (params, callback) {
 
 var _uploadFile = function (file, callback) {
     file.name = crypto.createHash('md5').update(file.name).digest("hex") + file.name;
-    fs.rename(file.path, process.cwd() + '/public/images/products/' + file.name, function (err) {
+    fs.rename(file.path, process.cwd() + '/public/img/products/' + file.name, function (err) {
         callback(false, file.name);
     });
 };
@@ -153,13 +154,13 @@ var _createProductImages = function (params, files, callback) {
 
 var actions = {
     default: function (req, res, view) {
-        var params = req.body;
+        var params = req.query;
+//        params = extend(params.query);
         params.current_category_id = req.route.params.category_id || '';
         params.current_maker_id = req.route.params.maker_id || '';
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products[0].images);
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -193,9 +194,9 @@ var actions = {
             product = _combineI18nProducts(products);
             category.getAllCategoryI18n(params, function (categories) {
                 maker.getAllMakers(params, function (makers) {
-                    _attachImagesToProduct(product, function (product) {
+                    _attachImagesToProduct(product, function (productWithImages) {
                         res.render(view, {
-                            product: _combineI18nProducts(products),
+                            product: product,
                             categories: categories,
                             makers: makers,
                             params: params
@@ -223,7 +224,6 @@ var actions = {
         _getProductI18nByCategoryIdAndMakerId(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products);
                     res.render(view, {
                         categories: categories,
                         products: products,
@@ -239,10 +239,12 @@ var actions = {
         params.category_id = req.route.params.category_id;
         _getProductI18nByCategoryId(params, function (products) {
             _getCategoryI18n(params, function (categories) {
-                res.render(view, {
-                    categories: categories,
-                    products: products,
-                    params: params
+                _attachImagesToProduct(products, function (products) {
+                    res.render(view, {
+                        categories: categories,
+                        products: products,
+                        params: params
+                    });
                 });
             });
         });
@@ -267,6 +269,10 @@ module.exports = {
         actions.edit(req, res, 'product/_edit');
     },
 
+    show: function (req, res) {
+        actions.edit(req, res, 'product/_show');
+    },
+
     update: function (req, res) {
         actions.update(req, res);
     },
@@ -276,6 +282,6 @@ module.exports = {
     },
 
     category: function (req, res) {
-        actions.category(req, res, 'product/' + res.role + '_default');
+        actions.category(req, res, 'product/_default');
     }
 };

@@ -37,9 +37,10 @@ exports.login = function (req, res) {
     var params = req.body;
     modelUser.getUserByLoginAndPassword(params, function (result) {
         if (!result.success) {
-            res.render('product/_default', {
-                loginErrorMessage: result.message
-            });
+            res.redirect('?login_error=false');
+//            res.render('product/_default', {
+//                loginErrorMessage: result.message
+//            });
         } else {
             _loginUser(req, res, result.data);
         }

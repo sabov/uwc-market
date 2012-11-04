@@ -29,22 +29,41 @@ header.navbar.navbar-static-top
                   .control-group
                     .controls
                       button.btn.btn-primary(type='submit')= __i.Registration
-            li
-              a.dropdown-toggle(data-toggle='dropdown', href='#')=  __i.Enter
-                b.caret
-              .dropdown-menu.pull-right
-                form.form-vertical.login-form.login(action='/login', method='POST')
-                  .control-group
-                    label.control-label= __i.Username
-                      | :
-                    .controls
-                      input(type='text', name='username', placeholder=__i.Username)
-                  .control-group
-                    label.control-label= __i.Password
-                      | :
-                    .controls
-                      input(type='password', name='password', placeholder= __i.Password)
-                      button.btn.btn-primary(type='submit')= __i.Enter
+            if params.login_error
+              li.open
+                a.dropdown-toggle(data-toggle='dropdown', href='#')=  __i.Enter
+                  b.caret
+                .dropdown-menu.pull-right
+                  form.form-vertical.login-form.login(action='/login', method='POST')
+                    .control-group
+                      label.control-label= __i.Username
+                        | :
+                      .controls
+                        input(type='text', name='username', placeholder=__i.Username)
+                        label.error(for='username', generated='true')= __i.WrongLogin
+                    .control-group
+                      label.control-label= __i.Password
+                        | :
+                      .controls
+                        input(type='password', name='password', placeholder= __i.Password)
+                        button.btn.btn-primary(type='submit')= __i.Enter
+            else
+              li
+                a.dropdown-toggle(data-toggle='dropdown', href='#')=  __i.Enter
+                  b.caret
+                .dropdown-menu.pull-right
+                  form.form-vertical.login-form.login(action='/login', method='POST')
+                    .control-group
+                      label.control-label= __i.Username
+                        | :
+                      .controls
+                        input(type='text', name='username', placeholder=__i.Username)
+                    .control-group
+                      label.control-label= __i.Password
+                        | :
+                      .controls
+                        input(type='password', name='password', placeholder= __i.Password)
+                        button.btn.btn-primary(type='submit')= __i.Enter
           if session.role == 'admin'
             li
               a.username(href='/category') Admin

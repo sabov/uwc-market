@@ -72,11 +72,12 @@ app.post('/maker/update/:maker_id', secure, maker.update);
 /* Product */
 app.get('/', product.default);
 app.post('/', secure, product.create);
-app.get('/:product_id', product.edit);
+app.get('/:product_id', product.show);
 app.post('/:product_id', secure, product.update);
 app.get('/category/:category_id', product.category);
 app.get('/category/:category_id/maker/:maker_id', product.categoryAndMaker);
 app.get('/product/delete/:product_id', secure, product.delete);
+app.get('/product/edit/:product_id', product.edit);
 
 
 http.createServer(app).listen(app.get('port'), function () {

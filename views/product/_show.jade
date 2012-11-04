@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+  section.container
+    section.row
+      include ../sidebar
+      section.span9
+          .row-fluid
+             .product
+               .span7
+                 if product.images
+                   each image in product.images
+                     .product-img-holder
+                       img.img-polaroid(src='#{'img/products/' + image.image_name}')
+                       a.pseudo-link(href='') Delete image
+               .span5
+                 h1.name= product.title
+                 dl.dl-horizontal
+                   dt Price
+                   dd 400$
+                 dl.dl-horizontal
+                   dt Materil
+                   dd Iron
+                 dl.dl-horizontal
+                   dt Weight
+                   dd 400g
