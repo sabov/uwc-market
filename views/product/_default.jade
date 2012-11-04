@@ -9,7 +9,7 @@ block content
             each product in products
               if session.role == 'admin'
                 .block
-                  if product.images & product
+                  if product.images & product.images[0]
                     a(href='#{'/product/delete/' + product.product_id}') x
                     br
                     a(href='#{'/product/edit/' + product.product_id}') Edit
@@ -17,6 +17,6 @@ block content
                     a(href='#{'/' + product.product_id}') Show
               else
                 .block
-                  if product.images
+                  if product.images & product.images[0]
                     img(src="#{'/img/products/' + product.images[0].image_name}")
                     a(href='#{'/' + product.product_id}') Show
