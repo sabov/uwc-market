@@ -16,17 +16,17 @@ block content
       include ../sidebar
       section.span9
         if products
-        each product in products
-          if session.role == 'admin'
-            .block
-              if product.images & product.iamges[0]
-              a(href='#{'/product/delete/' + product.product_id}') x
-              br
-              a(href='#{'/product/edit/' + product.product_id}') Edit
-              br
-              a(href='#{'/' + product.product_id}') Show
-          else
-            .block
-              if product.images & product.iamges[0]
-                img(src="#{'/img/products/' + product.images[0].image_name}")
-                a(href='#{'/' + product.product_id}') Show
+            each product in products
+              if session.role == 'admin'
+                .block
+                  if product.images & product
+                    a(href='#{'/product/delete/' + product.product_id}') x
+                    br
+                    a(href='#{'/product/edit/' + product.product_id}') Edit
+                    br
+                    a(href='#{'/' + product.product_id}') Show
+              else
+                .block
+                  if product.images
+                    img(src="#{'/img/products/' + product.images[0].image_name}")
+                    a(href='#{'/' + product.product_id}') Show

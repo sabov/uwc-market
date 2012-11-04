@@ -17,7 +17,8 @@ module.exports = (function () {
         getProductI18nByCategoryIdAndMakerId: 'SELECT * FROM product INNER JOIN product_i18n ON (product.id = product_i18n.product_id) WHERE product.category_id = :category_id AND product.maker_id = :maker_id AND product_i18n.language_id = :language_id',
         getAllProductI18n: 'SELECT * FROM product INNER JOIN product_i18n ON (product.id = product_i18n.product_id) WHERE product_i18n.language_id = :language_id',
         getMakerByCategoryId: 'SELECT DISTINCT maker.id as maker_id, maker.name from product INNER JOIN maker ON (product.maker_id = maker.id) WHERE product.category_id = :category_id',
-        getAllCategoryWithProducts: 'SELECT DISTINCT r1.category_id, r1.name from (SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id) WHERE category_i18n.language_id = :language_id) as r1 INNER JOIN product ON (product.category_id = r1.category_id)'
+        getAllCategoryWithProducts: 'SELECT DISTINCT r1.category_id, r1.name from (SELECT category_i18n.* FROM category INNER JOIN category_i18n ON (category.id = category_i18n.category_id) WHERE category_i18n.language_id = :language_id) as r1 INNER JOIN product ON (product.category_id = r1.category_id)',
+        deleteImage: 'DELETE FROM product_image WHERE id = :image_id'
     };
 
     var _createProductI18n = function (params, callback) {
@@ -109,6 +110,11 @@ module.exports = (function () {
         },
         getAllCategoryWithProducts: function (params, callback) {
             mysql.query(sql.getAllCategoryWithProducts, params, function (res) {
+                callback(res);
+            });
+        },
+        deleteImage: function (params, callback) {
+            mysql.query(sql.deleteImage, params, function (res) {
                 callback(res);
             });
         }

@@ -12,7 +12,7 @@ block content
                    each image in product.images
                      .product-img-holder
                        img.img-polaroid(src='#{'img/products/' + image.image_name}')
-                       a.pseudo-link(href='') Delete image
+                       a.pseudo-link(href='#{'/product/delete_image/' + image.id}') Delete image
                .span5
                  h1.name= product.title
                  dl.dl-horizontal
