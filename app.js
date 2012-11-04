@@ -54,6 +54,7 @@ function secure(req, res, next) {
 app.post('/login', session.login);
 app.post('/registration', session.registration);
 app.get('/logout', session.logout);
+app.get('/switch_language/:language_id', session.switchLanguage);
 
 /* Category */
 app.get('/category', secure, category.list);
