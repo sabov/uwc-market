@@ -4,6 +4,14 @@ header.navbar.navbar-static-top
       a.brand(href='/') UWC Market
       nav.pull-right
         ul.nav
+          li
+            a.dropdown-toggle(data-toggle='dropdown', href='#')= __i.Language
+              b.caret
+            ul.dropdown-menu(role="menu", style="min-width:40px")
+              li
+                a(href='') UA
+              li
+                a(href='') RU
           if session.username
             li
               span.username= session.username
