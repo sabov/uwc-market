@@ -17,16 +17,25 @@ block content
       section.span9
         if products
             each product in products
-              if session.role == 'admin'
-                .block
-                  if product.images & product.images[0]
-                    a(href='#{'/product/delete/' + product.product_id}') x
-                    br
-                    a(href='#{'/product/edit/' + product.product_id}') Edit
-                    br
-                    a(href='#{'/' + product.product_id}') Show
-              else
-                .block
-                  if product.images & product.images[0]
-                    img(src="#{'/img/products/' + product.images[0].image_name}")
-                    a(href='#{'/' + product.product_id}') Show
+                .block.well
+                  .block-gallary
+                      .block-controls
+                        .block-arrow(data-dir='prev')
+                          .block-left-arrow
+                        .block-arrow.block-arrow-pull-right(data-dir='next')
+                          .block-right-arrow
+                        .block-description
+                          p Iphone 5! Amazing!
+                      .carousel.slide
+                        ul.carousel-inner
+                        if product.images
+                          each image, i in product.images
+                            if i == 0
+                              li.item.active
+                                img(src='img/products/1.jpg')
+                                img(src="#{'/img/products/' + image.image_name}")
+                            else
+                              li.item
+                                img(src="#{'/img/products/' + image.image_name}")
+                    .block-title-holder
+                      h2 Iphone 5

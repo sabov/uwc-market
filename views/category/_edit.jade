@@ -10,12 +10,12 @@ block content
               label.control-label= __i.Title
                 | &nbsp;RU
               .controls
-                input(type='text', name="name_ru")
+                input(type='text', name="name_ru", value=category.name_ru)
             .control-group
               label.control-label= __i.Title
                 | &nbsp;UA
               .controls
-                input(type='text', name="name_ua")
+                input(type='text', name="name_ua", value=category.name_ua)
             .form-actions
               button.btn.btn-primary(type='submit')= __i.Save
               a.btn(href='#{'/category/delete/' + category.category_id }')= __i.Cancel

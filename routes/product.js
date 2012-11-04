@@ -161,7 +161,8 @@ var actions = {
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products[0].images);
+                    console.log(products);
+                    console.log('view');
                     res.render(view, {
                         products: products,
                         categories: categories,
