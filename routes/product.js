@@ -161,8 +161,6 @@ var actions = {
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products);
-                    console.log('view');
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -193,7 +191,20 @@ var actions = {
 
         params.product_id =  req.route.params.product_id;
         modelProduct.getProductById(params, function (products) {
+            var paramsObject = [];
             product = _combineI18nProducts(products);
+            product.params = product.params.split('\r\n');
+            for (var item in product.params){
+                item = product.params[item].split(':');
+                if (item) {
+                    paramsObject.push({
+                        'key': item[0],
+                        'value': item[1]
+                    });
+                }
+            }
+            product.params = paramsObject;
+            console.log(product.params);
             category.getAllCategoryI18n(params, function (categories) {
                 maker.getAllMakers(params, function (makers) {
                     _attachImagesToProduct(product, function (productWithImages) {
