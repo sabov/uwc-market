@@ -11,9 +11,9 @@ block content
                  if product.images
                    each image in product.images
                      .product-img-holder
-                       img.img-polaroid(src='#{'img/products/' + image.image_name}')
+                       img(src='#{'img/products/' + image.image_name}')
                        if session.role == 'admin'
-                         a.pseudo-link(href='#{'/product/delete_image/' + image.id}') Delete image
+                         a.btn.btn-mini.btn-danger.btn-img-delete(href='#{'/product/delete_image/' + image.id}') Delete
                .span5
                  h1.name= product.title
                  if product.params
