@@ -179,7 +179,6 @@ var actions = {
     },
 
     delete: function (req, res) {
-        console.log(req.route.params);
         modelProduct.deleteProduct({product_id: req.route.params.product_id}, function () {
             res.redirect('back');
         });
