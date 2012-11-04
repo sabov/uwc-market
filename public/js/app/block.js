@@ -3,7 +3,9 @@
         var items = $(items);
         items.each(function (key, el) {
             el = $(el);
-            var cr = el.find('.carousel').carousel();
+            var cr = el.find('.carousel').carousel({
+              interval: 60000
+            });
             el.find('.block-left-arrow').bind('click', function() {
                 cr.carousel('prev');
             });

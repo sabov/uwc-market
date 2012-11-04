@@ -26,16 +26,19 @@ block content
                           .block-right-arrow
                         .block-description
                           p= product.description
+                        if session.role == 'admin'
+                          .block-btn-holder
+                            a(href='', style="margin-right:3px").btn.btn-primary.btn-mini Edit
+                            a(href='').btn.btn-danger.btn-mini Delete
                       .carousel.slide
                         ul.carousel-inner
-                        if product.images
-                          each image, i in product.images
-                            if i == 0
-                              li.item.active
-                                img(src='img/products/1.jpg')
-                                img(src="#{'/img/products/' + image.image_name}")
-                            else
-                              li.item
-                                img(src="#{'/img/products/' + image.image_name}")
+                          if product.images
+                            each image, i in product.images
+                              if i == 0
+                                li.item.active
+                                  img(src="#{'/img/products/' + image.image_name}")
+                              else
+                                li.item
+                                  img(src="#{'/img/products/' + image.image_name}")
                     .block-title-holder
-                      h2= product.name
+                      a.block-title(href='')= product.title
