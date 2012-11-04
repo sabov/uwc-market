@@ -44,7 +44,6 @@ module.exports = (function () {
                 callback = arguments['2'];
             }
             sql = _prepareSql(sql, params);
-            console.log(sql);
             client.query(sql, function (err, res, fields) {
                 if (err) {
                     throw err;
