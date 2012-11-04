@@ -1,0 +1,28 @@
+﻿Steb-by-step installation on Ubuntu
+
+1. Установить новую версию Node.js:
+	git clone https://github.com/joyent/node.git && cd node
+	apt-get auto-apt
+	auto-apt -y run ./configure
+	make
+	make install
+
+2. Установить MySQL:
+	apt-get install mysql-server
+	user и password выставить в файле config/db.js
+
+3. Скачать проект UWC-market с репозитория на github:
+	git clone https://github.com/sabov/uwc.git uwc-market
+
+4. Создать базу market:
+	mysql -u root create database market;
+
+5. Накатить дамп
+	mysql -u root market < market_2012-11-04.sql
+
+6. admina можно зарегистрировать как простого юзера и установить  знаение поля role в таблице user в 'admin'
+
+6. Запустить сервер:
+	cd uwc-market
+	node app
+

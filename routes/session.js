@@ -38,9 +38,6 @@ exports.login = function (req, res) {
     modelUser.getUserByLoginAndPassword(params, function (result) {
         if (!result.success) {
             res.redirect('?login_error=false');
-//            res.render('product/_default', {
-//                loginErrorMessage: result.message
-//            });
         } else {
             _loginUser(req, res, result.data);
         }
@@ -52,3 +49,7 @@ exports.logout = function (req, res) {
     res.redirect('/');
 };
 
+exports.switchLanguage = function (req, res) {
+    res.cookie('language_id', req.route.params.language_id, { maxAge: 900000, httpOnly: false });
+    res.redirect('back');
+};
