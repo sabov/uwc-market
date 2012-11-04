@@ -4,6 +4,13 @@ block content
     section.container
       section.row.item-edit
         .span12
+          ul.nav.nav-tabs
+            li
+              a(href='/category')= __i.Categories
+            li
+              a(href='/maker')= __i.Makers
+            li.active
+              a(href='/')= __i.Products
           form.product-form.form-horizontal(action='#{'/' + params.product_id}', method='POST',  enctype='multipart/form-data')
             fieldset
               legend= __i.NewProduct

@@ -3,19 +3,27 @@ extends ../layout
 block content
   section.container
       section.row.item-edit
-        form(action='#{'/category/update/' + category.category_id}', method='POST', class="form-horizontal")
-          fieldset
-            legend= __i.NewCategory
-            .control-group
-              label.control-label= __i.Title
-                | &nbsp;RU
-              .controls
-                input(type='text', name="name_ru", value=category.name_ru)
-            .control-group
-              label.control-label= __i.Title
-                | &nbsp;UA
-              .controls
-                input(type='text', name="name_ua", value=category.name_ua)
-            .form-actions
-              button.btn.btn-primary(type='submit')= __i.Save
-              a.btn(href='#{'/category/delete/' + category.category_id }')= __i.Cancel
+        div.span12
+          ul.nav.nav-tabs
+            li.active
+              a(href='/category')= __i.Categories
+            li
+              a(href='/maker')= __i.Makers
+            li
+              a(href='/')= __i.Products
+          form(action='#{'/category/update/' + category.category_id}', method='POST', class="form-horizontal")
+            fieldset
+              legend= __i.NewCategory
+              .control-group
+                label.control-label= __i.Title
+                  | &nbsp;RU
+                .controls
+                  input(type='text', name="name_ru")
+              .control-group
+                label.control-label= __i.Title
+                  | &nbsp;UA
+                .controls
+                  input(type='text', name="name_ua")
+              .form-actions
+                button.btn.btn-primary(type='submit')= __i.Save
+                a.btn(href='#{'/category/delete/' + category.category_id }')= __i.Cancel

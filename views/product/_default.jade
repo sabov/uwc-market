@@ -2,9 +2,9 @@ extends ../layout
 
 block content
   section.container
-    section.row
-      .span12
-        if session.role == 'admin'
+    if session.role == 'admin'
+      section.row
+        .span12
           ul.nav.nav-tabs
             li
               a(href='/category')= __i.Categories
