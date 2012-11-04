@@ -193,18 +193,19 @@ var actions = {
         modelProduct.getProductById(params, function (products) {
             var paramsObject = [];
             product = _combineI18nProducts(products);
-            product.params = product.params.split('\r\n');
-            for (var item in product.params){
-                item = product.params[item].split(':');
-                if (item) {
-                    paramsObject.push({
-                        'key': item[0],
-                        'value': item[1]
-                    });
+            if (product.params){
+                product.params = product.params.split('\r\n');
+                for (var item in product.params){
+                    item = product.params[item].split(':');
+                    if (item) {
+                        paramsObject.push({
+                            'key': item[0],
+                            'value': item[1]
+                        });
+                    }
                 }
             }
             product.params = paramsObject;
-            console.log(product.params);
             category.getAllCategoryI18n(params, function (categories) {
                 maker.getAllMakers(params, function (makers) {
                     _attachImagesToProduct(product, function (productWithImages) {
