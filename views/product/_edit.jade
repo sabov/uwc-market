@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    h3 Product_list
+    form(action='#{'/' + params.product_id}', method='POST',  enctype='multipart/form-data')
+        select(name='category_id')
+            each category in categories
+                if product.category_id == category.id
+                    option(selected=true, value= category.category_id)= category.name
+                else
+                    option(value= category.category_id)= category.name
+        select(name='maker_id')
+            each maker in makers
+                if product.maker_id == maker.id
+                    option(selected=true, value= maker.id)= maker.name
+                else
+                    option(value= maker.id)= maker.name
+        p amount
+            input(type='text', name='amount', value=product.amount)
+        p title_ru
+            input(type='text', name='title_ru', value= product.title_ru)
+        p title_ua
+            input(type='text', name='title_ua', value= product.title_ua)
+        p descr_ru
+            input(type='text', name='description_ru', value= product.description_ru)
+        p descr_ua
+            input(type='text', name='description_ua', value= product.description_ua)
+        p params
+            input(type='text', name='params', value=product.params)
+        p images
+            input(type='file', name='images', multiple="")
+        p
+            input(type='submit')

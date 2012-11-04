@@ -5,31 +5,30 @@ var mysql = require('../libs/mysql'),
 
 module.exports = (function () {
     var sql = {
-        getLanguageName: 'SELECT language.name as name FROM user INNER JOIN language ON (user.language_id = language.id) WHERE user.login=$1',
-        getUserByLogin: 'SELECT * FROM user WHERE login=$1',
-        getUserByLoginAndPassword: 'SELECT * FROM user WHERE (login=$1 AND password=$2)',
-        createUser: 'INSERT INTO user (login, password, language_id) VALUES ($1, $2, $3)'
+        getUserLanguage: 'SELECT * FROM user INNER JOIN language ON (user.language_id = language.id) WHERE user.username=:username',
+        getUserByLogin: 'SELECT * FROM user WHERE username=:username',
+        getUserByLoginAndPassword: 'SELECT * FROM user WHERE (username=:username AND password=:password)',
+        createUser: 'INSERT INTO user (username, password, language_id) VALUES (:username, :password, :language_id)'
     };
 
-    var _getUserByLogin = function (login, callback) {
-        mysql.query(sql.getUserByLogin, [login], function (res, fields) {
+    var _getUserByLogin = function (params, callback) {
+        mysql.query(sql.getUserByLogin, params, function (res) {
             if (!res.length) {
                 callback({
                     success: false,
-                    message: 'user not found'
+                    message: 'User not found'
                 });
-                return;
+            } else {
+                callback({
+                    success: true,
+                    data: res
+                });
             }
-            callback({
-                success: true,
-                data: res
-            });
         });
     };
 
-    var _isLoginExist = function (login, callback) {
-        _getUserByLogin(login, function (res) {
-            console.log(res);
+    var _checkUsername = function (params, callback) {
+        _getUserByLogin(params, function (res) {
             if (res.success) {
                 callback(true);
             } else {
@@ -39,64 +38,59 @@ module.exports = (function () {
     };
 
     return {
-        getLanguageName: function (login, callback) {
-            this.getUserByLogin(login, function (res, fields) {
-                mysql.query(sql.getLanguageName, [login], function (res, fields) {
-                    if (res.length) {
-                        callback({
-                            success: true,
-                            data: res[0]
-                        });
-                    } else {
-                        callback({
-                            success: false,
-                            message: 'user not found'
-                        });
-                    }
-                });
+        getUserLanguage: function (params, callback) {
+            mysql.query(sql.getUserLanguage, params, function (res) {
+                if (res.length) {
+                    callback({
+                        success: true,
+                        data: res[0]
+                    });
+                }
             });
         },
 
-        getUserByLogin : function (login, callback) {
-            _getUserByLogin(login, callback);
-        },
-
-        getUserByLoginAndPassword : function (login, password, callback) {
-            var shasum = crypto.createHash('sha1'),
-                shaPassword = shasum.update(password).digest('hex');
-            mysql.query(sql.getUserByLoginAndPassword, [login, shaPassword], function (res, fields) {
+        getUserByLoginAndPassword : function (params, callback) {
+            var shasum = crypto.createHash('sha1');
+            params.password = shasum.update(params.password).digest('hex');
+            mysql.query(sql.getUserByLoginAndPassword, params, function (res) {
                 if (!res.length) {
                     callback({
                         success: false,
-                        message: 'wrong login or password'
+                        message: 'Wrong username or password'
                     });
-                    return;
+                } else {
+                    callback({
+                        success: true,
+                        data: res[0]
+                    });
                 }
-                callback({
-                    success: true,
-                    data: res
-                });
             });
         },
 
-        createUser : function (login, password, callback) {
-            var shasum = crypto.createHash('sha1'),
-                shaPassword = shasum.update(password).digest('hex');
-            _isLoginExist(login, function (exist) {
+        createUser : function (params, callback) {
+            var shasum = crypto.createHash('sha1');
+            params.password = shasum.update(params.password).digest('hex');
+            _checkUsername(params, function (exist) {
                 if (exist) {
                     callback({
                         success: false,
-                        message: 'user with this name is already created'
+                        message: 'User with this name is already exist'
                     });
-                    return;
+                } else {
+                    mysql.query(sql.createUser, params, function (res) {
+                        if (res) {
+                            callback({
+                                success: true,
+                                data: res
+                            });
+                        } else {
+                            callback({
+                                success: false,
+                                message: 'Can not create user'
+                            });
+                        }
+                    });
                 }
-
-                mysql.query(sql.createUser, [login, shaPassword, dbConstants.UA_ID], function (res, fields) {
-                    callback({
-                        success: true,
-                        data: res
-                    });
-                });
             });
         }
     };

@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  section.container
+      section.row.item-edit
+        form(action='#{'/maker/update/' + maker.maker_id}', method='POST', class="form-horizontal")
+          fieldset
+            legend= __i.NewMaker
+            .control-group
+              label.control-label= __i.Title
+                | &nbsp;RU
+              .controls
+                input(type='text', name="name")
+            .form-actions
+              button.btn.btn-primary(type='submit')= __i.Save
+              a.btn(href='#{'/maker/delete/' + maker.maker_id }')= __i.Cancel

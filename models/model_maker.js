@@ -7,16 +7,17 @@ var mysql = require('../libs/mysql'),
 module.exports = (function () {
     var sql = {
         createMaker: 'INSERT INTO maker(name) VALUES(:name)',
-        deleteMaker: 'DELETE FROM maker WHERE id = :id',
-        updateMaker: 'UPDATE maker SET name = :name WHERE id = :id',
+        deleteMaker: 'DELETE FROM maker WHERE id = :maker_id',
+        updateMaker: 'UPDATE maker SET name = :name WHERE id = :maker_id',
         getMakersByCategoryId: 'SELECT * FROM maker WHERE category_id = :category_id',
-        getAllMakers: 'SELECT * FROM maker'
+        getAllMakers: 'SELECT * FROM maker',
+        getMakerById: 'SELECT * FROM maker where id = :maker_id'
     };
     return {
         //params = {name:''}
         createMaker: function (params, callback) {
-            mysql.query(sql.createMaker, params, function (res, fields) {
-                callback(res);
+            mysql.query(sql.createMaker, params, function (res) {
+                callback(res.insertId);
             });
         },
         //params = {id:'' name:''}
@@ -38,10 +39,16 @@ module.exports = (function () {
             });
         },
         //params = {category_id:''}
-        getAllMakers: function (callback) {
+        getAllMakers: function (params, callback) {
             mysql.query(sql.getAllMakers, function (res) {
                 callback(res);
             });
+        },
+        getMakerById: function (params, callback) {
+            mysql.query(sql.getMakerById, params, function (res) {
+                callback(res[0]);
+            });
         }
+
     };
 })();

@@ -1,26 +1,12 @@
-doctype 5
+!!! 5
 html
-    head
-      title=title
-      link(rel='stylesheet', href='/stylesheets/style.css')
-      script(type='text/javascript', src="http://code.jquery.com/jquery-latest.js");
-      script(type='text/javascript', src='/javascripts/test.js')
-
-    body
-        block header
-            h1= __i.Hello
-            if (message)
-                p= message
-            if session.user != null
-                p Зашел как #{session.user}
-                    a(href='/session/destroy') &nbsp;logOut
-            else
-                a(href='/session') &nbsp;logIn
-                a(href='/session/registration') &nbsp;signUp
-
-        block content
-            h2 this is content block
-
-        block footer
-            h3 this is foo-footer
-
+  head
+    title UWC Market
+    link(href='/css/bootstrap.css', rel='stylesheet')
+    link(href='/css/bootstrap-responsive.css', rel='stylesheet')
+    link(href='/css/app.less?4', rel='stylesheet/less')
+    script(data-main='/js/main', src='/js/lib/require.js')
+    meta(http-equiv='content-type', content='text/html; charset=UTF-8')
+  body
+  include head
+  block content

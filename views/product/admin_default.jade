@@ -1,21 +1,43 @@
 extends ../layout
 
 block content
-    h3 categorylist
-    ul
-        each category in categories
-            li
-                a(href='#{'/admin/product/category/' + category.category_id}', class='a') bla
-            if category.makers != undefined
-                ol
-                    each maker in category.makers
-                        li
-                            a(href='#{'/admin/product/category/' + category.category_id + '/maker/' + maker.maker_id}', class='a')=maker.name
-    h2 ProductList
-    ol
+  if session.role = 'admin'
+    form(action='/', method='POST')
+      input(type='submit', value='CreateProduct')
+  section.container
+    section.row
+      nav.span3
+        .well.sidebar-holder
+          form.form-search
+            input.search-query(placeholder= __i.Search, type='text')
+          ul.nav.nav-list
+            li.nav-header= __i.Categories
+            if categories
+              each category in categories
+                if category.category_id == params.category_id
+                  li.active
+                    a(href='#{'/category/' + category.category_id}')= category.name
+                else
+                  li
+                    a(href='#{'/category/' + category.category_id}')= category.name
+            li.divider
+            li.nav-header= __i.Makers
+            if categories
+              each category in categories
+                if category.category_id == params.category_id
+                  each maker in category.makers
+                    if maker.maker_id == params.maker_id
+                      li.active
+                        a(href='#')= maker.name
+                    else
+                      li
+                        a(href='#{'/category/' + category.category_id + '/maker/' + maker.maker_id}')= maker.name
+      section.span9
+        if products
         each product in products
-            li
-                a(href='#{'/admin/product/' + product.product_id }')=product.title
+          if session.role == 'admin'
+            .block
+              a(href='#{'/product/delete/' + product.product_id}') x
+          else
+            .block
 
-    form(action='/admin/product', method="POST")
-        input(type="submit")

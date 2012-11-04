@@ -1,8 +1,40 @@
 module.exports = {
     1: {
-        Hello: 'Привет'
+        Registration: 'Регистрация',
+        Enter: 'Вход',
+        Exit: 'Выход',
+        Username: 'Имя',
+        Password: 'Пароль',
+        NewCategory: 'Новая категория',
+        NewMaker: 'Новый производитель',
+        Categories: 'Категории',
+        CreateCategory: 'Cоздать категорию',
+        CreateMaker: 'Cоздать произвоителя',
+        Makers: 'Производители',
+        Products: 'Товары',
+        Search: 'Поиск',
+        Title: 'Название',
+        Save: 'Сохранить',
+        Cancel: 'Отмена',
+        Create: 'Создать',
     },
     2: {
-        Hello: 'Вiтаю'
+        Registration: 'Реєстрацiя',
+        Enter: 'Вхiд',
+        Exit: 'Вихiд',
+        Username: 'Iм\'я',
+        Password: 'Пароль',
+        NewCategory: 'Нова категорiя',
+        NewMaker: 'Новий виробник',
+        Categories: 'Категорiї',
+        CreateCategory: 'Cтворити категорiю',
+        CreateMaker: 'Cтворити выробника',
+        Makers: 'Виробники',
+        Products: 'Товари',
+        Search: 'Пошук',
+        Title: 'Назва',
+        Save: 'Зберегти',
+        Cancel: 'Скасувати',
+        Create: 'Створити',
     }
 };

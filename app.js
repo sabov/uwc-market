@@ -1,7 +1,8 @@
 var express = require('express')
-  , routes = require('./routes')
   , session = require('./routes/session')
   , product = require('./routes/product')
+  , category = require('./routes/category')
+  , maker = require('./routes/maker')
   , http = require('http')
   , path = require('path')
   , dbConstants = require('./config/dbConstants')
@@ -24,11 +25,12 @@ app.configure(function () {
         reapInterval:  6000 * 10
     })}));
     app.use(function (req, res, next) {
-        res.locals.__i = i18n[req.session.lang_id || dbConstants.UA_ID];
+        res.locals.__i = i18n[req.cookies.language_id || dbConstants.UA_ID];
         res.locals.session = req.session;
         res.locals.title = 'UWC Market';
         res.locals.message = '';
-        req.body.language_id = req.body.language_id || req.session.lang_id || dbConstants.UA_ID;
+        res.role = req.session.role || '';
+        req.body.language_id = req.body.language_id || req.cookies.language_id || dbConstants.UA_ID;
         next();
     });
 
@@ -40,48 +42,41 @@ app.configure('development', function () {
   app.use(express.errorHandler());
 });
 
-function requireLogin(req, res, next) {
-    if (req.session.user) {
+function secure(req, res, next) {
+    if (req.session.role === 'admin') {
         next();
     } else {
-        res.redirect('/session/login_user?redir=' + req.url);
+        res.redirect('/');
     }
 }
 
-app.get('/', routes.index);
-
-                /* ADMIN */
-/* Product */
-
-
-
-app.get('/admin/product', product.default);
-app.post('/admin/product', product.create);
-
-app.get('/admin/product/:product_id', product.edit);
-app.post('/admin/product/:product_id', product.update);
-
-app.get('/admin/product/category/:category_id', product.category);
-app.get('/admin/product/category/:category_id/maker/:maker_id', product.categoryAndMaker);
-
-
-//app.get('/admin/product/delete/:product_id', product.delete);
-
-
-/**/
-
 /* Sessions */
+app.post('/login', session.login);
+app.post('/registration', session.registration);
+app.get('/logout', session.logout);
 
-app.get('/session/login_user', session.loginUser);
+/* Category */
+app.get('/category', secure, category.list);
+app.post('/category', secure, category.create);
+app.get('/category/delete/:category_id', secure, category.delete);
+app.get('/category/update/:category_id', secure, category.edit);
+app.post('/category/update/:category_id', secure, category.update);
 
-app.post('/session/do_login_user', session.doLoginUser);
+/* Maker */
+app.get('/maker', secure, maker.list);
+app.post('/maker', secure, maker.create);
+app.get('/maker/delete/:maker_id', secure, maker.delete);
+app.get('/maker/update/:maker_id', secure, maker.edit);
+app.post('/maker/update/:maker_id', secure, maker.update);
 
-app.get('/session/logout_user', session.logoutUser);
-
-app.get('/session/registration', session.registration);
-
-app.post('/session/do_registration', session.doRegistration);
-
+/* Product */
+app.get('/', product.default);
+app.post('/', secure, product.create);
+app.get('/:product_id', product.edit);
+app.post('/:product_id', secure, product.update);
+app.get('/category/:category_id', product.category);
+app.get('/category/:category_id/maker/:maker_id', product.categoryAndMaker);
+app.get('/product/delete/:product_id', secure, product.delete);
 
 
 http.createServer(app).listen(app.get('port'), function () {

@@ -1,7 +1,9 @@
 var user = require('../models/model_user'),
-    product = require('../models/model_product'),
+    crypto = require('crypto'),
+    modelProduct = require('../models/model_product'),
     maker = require('../models/model_maker'),
     async = require('async'),
+    fs = require('fs'),
     category = require('../models/model_category'),
     dbConstants = require('../config/dbConstants');
 
@@ -20,11 +22,11 @@ var _prepareToRu = function (params) {
 };
 
 var _updateProductWithI18n = function (params, callback) {
-    product.updateProduct(params, function (productId) {
+    modelProduct.updateProduct(params, function (productId) {
         params = _prepareToUa(params);
-        product.updateProductI18n(params, function (result) {
+        modelProduct.updateProductI18n(params, function (result) {
             params = _prepareToRu(params);
-            product.updateProductI18n(params, function (result) {
+            modelProduct.updateProductI18n(params, function (result) {
                 callback(result);
             });
         });
@@ -32,12 +34,12 @@ var _updateProductWithI18n = function (params, callback) {
 };
 
 var _createProductWithI18n = function (params, callback) {
-    product.createProduct(params, function (productId) {
+    modelProduct.createProduct(params, function (productId) {
         params.product_id = productId;
         params = _prepareToUa(params);
-        product.createProductI18n(params, function () {
+        modelProduct.createProductI18n(params, function () {
             params = _prepareToRu(params);
-            product.createProductI18n(params, function () {
+            modelProduct.createProductI18n(params, function () {
                 callback(productId);
             });
         });
@@ -57,42 +59,112 @@ var _combineI18nProducts = function (products) {
 
 var _mapCategoriesAndMakers = function (category, callback) {
     var params = {
-        category_id:category.category_id
+        category_id: category.category_id
     };
-    product.getMakerByCategoryId(params, function (makers) {
+    modelProduct.getMakerByCategoryId(params, function (makers) {
         category.makers = makers;
         callback(false, category);
     });
-}
+};
 
 var _getCategoryI18n = function (params, callback) {
-    category.getAllCategoryI18n(params, function (categories) {
-        async.map(categories, _mapCategoriesAndMakers, function (errorElem) {
+    modelProduct.getAllCategoryWithProducts(params, function (categories) {
+        async.map(categories, _mapCategoriesAndMakers, function (error) {
             callback(categories);
         });
     });
-}
+};
 
 var _getProductI18nByCategoryIdAndMakerId = function (params, callback) {
-    product.getProductI18nByCategoryIdAndMakerId(params, function (result) {
+    modelProduct.getProductI18nByCategoryIdAndMakerId(params, function (result) {
         callback(result);
     });
-}
+};
 
 var _getProductI18nByCategoryId = function (params, callback) {
-    product.getProductI18nByCategoryId(params, function (result) {
+    modelProduct.getProductI18nByCategoryId(params, function (result) {
         callback(result);
     });
-}
+};
 
-module.exports = {
-    default: function (req, res) {
+var _uploadFile = function (file, callback) {
+    file.name = crypto.createHash('md5').update(file.name).digest("hex") + file.name;
+    fs.rename(file.path, process.cwd() + '/public/images/products/' + file.name, function (err) {
+        callback(false, file.name);
+    });
+};
+
+var _uploadFileList = function (files, callback) {
+    async.map(files, _uploadFile, function (err) {
+        callback(files);
+    });
+};
+
+var _attachImagesToProduct = function (products, callback) {
+    if (!(products instanceof Array)) {
+        products = [products];
+    }
+    async.map(products, function (product, next) {
+        modelProduct.getProductImage(product, function (images) {
+            product.images = images;
+            next(false, product);
+        });
+    }, function (err, products) {
+        callback(products);
+    });
+};
+
+//insert array of product_image
+var _createProductImages = function (params, files, callback) {
+    var allowFormats = /image\/jpeg|image\/png/;
+    var isImage = function (image, callback) {
+        callback(!!image.type.match(allowFormats));
+    };
+    var _insertProductImageList = function (params) {
+        async.forEach(params.images, function (image, next) {
+            params.image_name = image.name;
+            modelProduct.createProductImage(params, function (inserId) {
+                if (!inserId) {
+                    next(true);
+                } else {
+                    next(false);
+                }
+            });
+        }, function (err) {
+            if (err) {
+                callback(err);
+            } else {
+                callback();
+            }
+        });
+    };
+    if (!(files instanceof Array)) {
+        files = [files];
+    }
+    async.filter(files, isImage, function (images) {
+        _uploadFileList(images, function (images) {
+            params.images = images;
+            _insertProductImageList(params, function (err) {
+                callback(err);
+            });
+        });
+    });
+};
+
+var actions = {
+    default: function (req, res, view) {
         var params = req.body;
-        product.getAllProductI18n(params, function (products) {
-            _getCategoryI18n(params, function(categories) {
-                res.render('product/admin_default', {
-                    products: products,
-                    categories: categories
+        params.current_category_id = req.route.params.category_id || '';
+        params.current_maker_id = req.route.params.maker_id || '';
+        modelProduct.getAllProductI18n(params, function (products) {
+            _getCategoryI18n(params, function (categories) {
+                _attachImagesToProduct(products, function (products) {
+                    console.log(products[0].images);
+                    res.render(view, {
+                        products: products,
+                        categories: categories,
+                        params: params
+                    });
                 });
             });
         });
@@ -101,24 +173,36 @@ module.exports = {
     create: function (req, res) {
         var params = req.body;
         _createProductWithI18n(params, function (productId) {
-            res.redirect('/admin/product/' + productId);
-        })
+            res.redirect('/' + productId);
+        });
     },
 
-    edit: function (req, res) {
-        var params = req.body;
+    delete: function (req, res) {
+        console.log(req.route.params);
+        modelProduct.deleteProduct({product_id: req.route.params.product_id}, function () {
+            res.redirect('back');
+        });
+    },
+
+    edit: function (req, res, view) {
+        var params = req.body,
+            product;
+
         params.product_id =  req.route.params.product_id;
-        product.getProductById(params, function (products) {
+        modelProduct.getProductById(params, function (products) {
+            product = _combineI18nProducts(products);
             category.getAllCategoryI18n(params, function (categories) {
-                maker.getAllMakers(function (makers) {
-                    res.render('product/admin_edit', {
-                        product: _combineI18nProducts(products),
-                        categories: categories,
-                        makers: makers,
-                        params: params
+                maker.getAllMakers(params, function (makers) {
+                    _attachImagesToProduct(product, function (product) {
+                        res.render(view, {
+                            product: _combineI18nProducts(products),
+                            categories: categories,
+                            makers: makers,
+                            params: params
+                        });
                     });
-                })
-            })
+                });
+            });
         });
     },
 
@@ -126,36 +210,72 @@ module.exports = {
         var params = req.body;
         params.product_id = req.route.params.product_id;
         _updateProductWithI18n(params, function () {
-            res.redirect('/admin/product/category/' + params.category_id + '/maker/' + params.maker_id);
+            _createProductImages(params, req.files.images, function (err) {
+                res.redirect('/category/' + params.category_id + '/maker/' + params.maker_id);
+            });
         });
     },
 
-    categoryAndMaker: function (req, res) {
+    categoryAndMaker: function (req, res, view) {
         var params = req.body;
         params.category_id = req.route.params.category_id;
         params.maker_id = req.route.params.maker_id;
         _getProductI18nByCategoryIdAndMakerId(params, function (products) {
-            _getCategoryI18n(params, function(categories) {
-                res.render('product/admin_default', {
-                    categories: categories,
-                    products: products,
-                    params: params
+            _getCategoryI18n(params, function (categories) {
+                _attachImagesToProduct(products, function (products) {
+                    console.log(products);
+                    res.render(view, {
+                        categories: categories,
+                        products: products,
+                        params: params
+                    });
                 });
-            })
+            });
         });
     },
 
-    category: function (req, res) {
+    category: function (req, res, view) {
         var params = req.body;
-            params.category_id = req.route.params.category_id;
+        params.category_id = req.route.params.category_id;
         _getProductI18nByCategoryId(params, function (products) {
-            _getCategoryI18n(params, function(categories) {
-                res.render('product/admin_default', {
+            _getCategoryI18n(params, function (categories) {
+                res.render(view, {
                     categories: categories,
                     products: products,
                     params: params
                 });
-            })
+            });
         });
+    }
+};
+
+
+module.exports = {
+    default: function (req, res) {
+        actions.default(req, res, 'product/_default');
+    },
+
+    create: function (req, res) {
+        actions.create(req, res);
+    },
+
+    delete: function (req, res) {
+        actions.delete(req, res);
+    },
+
+    edit: function (req, res) {
+        actions.edit(req, res, 'product/_edit');
+    },
+
+    update: function (req, res) {
+        actions.update(req, res);
+    },
+
+    categoryAndMaker: function (req, res) {
+        actions.categoryAndMaker(req, res, 'product/_default');
+    },
+
+    category: function (req, res) {
+        actions.category(req, res, 'product/' + res.role + '_default');
     }
 };

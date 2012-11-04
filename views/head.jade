@@ -1,0 +1,54 @@
+header.navbar.navbar-static-top
+  .navbar-inner
+    .container
+      a.brand(href='/') UWC Market
+      nav.pull-right
+        ul.nav
+          if session.username
+            li
+              span.username= session.username
+            li.divider-vertical
+            li
+              a(href='/logout')= __i.Exit
+          else
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')= __i.Registration
+                b.caret
+              .dropdown-menu.pull-right(style='margin-right: 80px;')
+                form.form-vertical.login-form.register(action='/registration', method='POST')
+                  .control-group
+                    label.control-label= __i.Username
+                      | :
+                    .controls
+                      input(type='text', name='username', placeholder=__i.Username)
+                  .control-group
+                    label.control-label= __i.Password
+                      | :
+                    .controls
+                      input(type='password', name='password', placeholder=__i.Password)
+                  .control-group
+                    .controls
+                      button.btn.btn-primary(type='submit')= __i.Registration
+            li
+              a.dropdown-toggle(data-toggle='dropdown', href='#')=  __i.Enter
+                b.caret
+              .dropdown-menu.pull-right
+                form.form-vertical.login-form.login(action='/login', method='POST')
+                  .control-group
+                    label.control-label= __i.Username
+                      | :
+                    .controls
+                      input(type='text', name='username', placeholder=__i.Username)
+                  .control-group
+                    label.control-label= __i.Password
+                      | :
+                    .controls
+                      input(type='password', name='password', placeholder= __i.Password)
+                      button.btn.btn-primary(type='submit')= __i.Enter
+          if session.role == 'admin'
+            li
+              a.username(href='/category') Admin
+            li.divider-vertical
+            form(action='/', method='POST')
+              input(type='submit', value='CreateProduct')
+

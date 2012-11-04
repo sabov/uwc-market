@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  section.container
+    section.row
+      ul.nav.nav-tabs
+        li.active
+          a(href='/category')= __i.Categories
+        li
+          a(href='/maker')= __i.Makers
+        li
+          a(href='/')= __i.Products
+      h2.pull-left= nameI18n
+      a.btn.btn-danger.pull-right(href='')
+        i.icon-trash
+        | Delete Selected
+      form(action='/category', method='POST')
+        button.btn.btn-primary.pull-right(type='submit', style='margin-right: 4px;')
+          i.icon-plus
+          = __i.CreateCategory
+      table.table.table-striped
+        thead
+          tr
+            td= __i.Title
+        tbody
+          if categories
+            each category in categories
+              tr
+                td
+                  a(href='')= category.name
+                td
+                td.table-item-delete
+                  a(href='#{'/' + name + '/delete/' + category.category_id }') ×
