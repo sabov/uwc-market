@@ -1,34 +1,66 @@
 .navbar {
-    margin-bottom: 15px;
-    .username {
-        display: block;
-        padding: 10px 15px;
-        font-weight: bold;
-        text-shadow: 0 1px 0 #FFFFFF;
-    }
+  margin-bottom: 15px;
+  .username {
+    display: block;
+    padding: 10px 15px;
+    font-weight: bold;
+    text-shadow: 0 1px 0 #FFFFFF;
+  }
 }
 .sidebar-holder {
-    padding: 8px 0;
-    .form-search {
-        padding: 0 15px;
-        margin: 10px 0;
-    }
+  padding: 8px 0;
+  .form-search {
+    padding: 0 15px;
+    margin: 10px 0;
+  }
 }
 .block {
-    height: 200px;
-    width: 280px;
-    margin-right:10px;
-    float:left;
-    background-color: #F1F1F1;
-    margin-bottom: 10px;
+  height: 200px;
+  width: 280px;
+  margin-right:10px;
+  float:left;
+  background-color: #F1F1F1;
+  margin-bottom: 10px;
 }
 .login-form {
-    padding:10px;
+  padding:10px;
+  margin:0;
+  input[type=text] {
+    margin-bottom:5px;
+  }
+  .control-group {
     margin:0;
-    input[type=text] {
-        margin-bottom:5px;
+  }
+}
+.product-img-holder {
+  padding:3px;
+  background-color:#FFFFFF;
+}
+.product {
+  background-color: #F1F1F1;
+  padding:20px;
+  overflow: hidden;
+  .name {
+    text-align:center;
+  }
+  dl {
+    background-color: #FEFEFE;
+    padding: 2px 5px;
+    font-size: 16px;
+    margin:1px 0;
+    display: block;
+    dt {
+      text-align: left;
     }
-    .control-group {
-        margin:0;
+    dd {
+      text-align: right;
+      color: #666;
     }
+  }
+}
+.item-edit {
+  textarea {
+    width:500px;
+    height:150px;
+  }
 }

@@ -154,13 +154,14 @@ var _createProductImages = function (params, files, callback) {
 
 var actions = {
     default: function (req, res, view) {
-        var params = req.query;
-//        params = extend(params.query);
+        var params = req.body;
+        params = extend(params, req.query);
         params.current_category_id = req.route.params.category_id || '';
         params.current_maker_id = req.route.params.maker_id || '';
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
+                    console.log(products);
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -179,6 +180,7 @@ var actions = {
     },
 
     delete: function (req, res) {
+        console.log(req.route.params);
         modelProduct.deleteProduct({product_id: req.route.params.product_id}, function () {
             res.redirect('back');
         });
