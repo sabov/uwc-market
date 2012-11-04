@@ -78,6 +78,7 @@ app.get('/category/:category_id', product.category);
 app.get('/category/:category_id/maker/:maker_id', product.categoryAndMaker);
 app.get('/product/delete/:product_id', secure, product.delete);
 app.get('/product/edit/:product_id', product.edit);
+app.get('/product/delete_image/:image_id', product.deleteImage);
 
 
 http.createServer(app).listen(app.get('port'), function () {

@@ -161,7 +161,7 @@ var actions = {
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products);
+                    console.log(products[0].images);
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -175,7 +175,7 @@ var actions = {
     create: function (req, res) {
         var params = req.body;
         _createProductWithI18n(params, function (productId) {
-            res.redirect('/' + productId);
+            res.redirect('/product/edit/' + productId);
         });
     },
 
@@ -284,5 +284,13 @@ module.exports = {
 
     category: function (req, res) {
         actions.category(req, res, 'product/_default');
+    },
+
+    deleteImage: function (req, res) {
+        var params = req.body;
+        params.image_id = req.route.params.image_id;
+        modelProduct.deleteImage(params, function (result) {
+            res.redirect('back');
+        });
     }
 };
