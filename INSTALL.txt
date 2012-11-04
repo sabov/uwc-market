@@ -1,27 +1,25 @@
-1. Установить новую версию Node.js:
+п»їSteb-by-step installation on Ubuntu
+
+1. РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РЅРѕРІСѓСЋ РІРµСЂСЃРёСЋ Node.js:
 	git clone https://github.com/joyent/node.git && cd node
 	apt-get auto-apt
 	auto-apt -y run ./configure
 	make
 	make install
 
-2. Установить MySQL:
+2. РЈСЃС‚Р°РЅРѕРІРёС‚СЊ MySQL:
 	apt-get install mysql-server
-   Пароль для root очтавить пустым.
+   РџР°СЂРѕР»СЊ РґР»СЏ root РѕС‡С‚Р°РІРёС‚СЊ РїСѓСЃС‚С‹Рј.
 
-3. Скачать проект UWC-market с репозитория на github:
+3. РЎРєР°С‡Р°С‚СЊ РїСЂРѕРµРєС‚ UWC-market СЃ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ РЅР° github:
 	git clone https://github.com/sabov/uwc.git uwc-market
 
-4. Создать базу market:
+4. РЎРѕР·РґР°С‚СЊ Р±Р°Р·Сѓ market:
 	mysql -u root create database market;
 
-5. Перенести дамп базы с проекта в только что созданую:
+5. РџРµСЂРµРЅРµСЃС‚Рё РґР°РјРї Р±Р°Р·С‹ СЃ РїСЂРѕРµРєС‚Р° РІ С‚РѕР»СЊРєРѕ С‡С‚Рѕ СЃРѕР·РґР°РЅСѓСЋ:
 	mysql -u root market<market_2012-11-04.sql
  
-6. Запустить сервер:
+6. Р—Р°РїСѓСЃС‚РёС‚СЊ СЃРµСЂРІРµСЂ:
 	cd uwc-market
 	node app
-
-7. Развернутый проект находиться на localhost, port: 3000
-	 http://127.0.0.1:3000
- 
