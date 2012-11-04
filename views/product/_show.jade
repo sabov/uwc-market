@@ -12,15 +12,12 @@ block content
                    each image in product.images
                      .product-img-holder
                        img.img-polaroid(src='#{'img/products/' + image.image_name}')
-                       a.pseudo-link(href='#{'/product/delete_image/' + image.id}') Delete image
+                       if session.role == 'admin'
+                         a.pseudo-link(href='#{'/product/delete_image/' + image.id}') Delete image
                .span5
                  h1.name= product.title
-                 dl.dl-horizontal
-                   dt Price
-                   dd 400$
-                 dl.dl-horizontal
-                   dt Materil
-                   dd Iron
-                 dl.dl-horizontal
-                   dt Weight
-                   dd 400g
+                 if product.params
+                   each parameter in product.params
+                     dl.dl-horizontal
+                       dt= parameter.key
+                       dd= parameter.value

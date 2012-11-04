@@ -10,7 +10,7 @@ block content
               label.control-label= __i.Title
                 | &nbsp;RU
               .controls
-                input(type='text', name="name")
+                input(type='text', name="name", value=maker.name)
             .form-actions
               button.btn.btn-primary(type='submit')= __i.Save
               a.btn(href='#{'/maker/delete/' + maker.maker_id }')= __i.Cancel
