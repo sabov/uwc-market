@@ -81,6 +81,9 @@ app.get('/product/delete/:product_id', secure, product.delete);
 app.get('/product/edit/:product_id', product.edit);
 app.get('/product/delete_image/:image_id', product.deleteImage);
 
+app.get('*', function (req, res) {
+    res.redirect('/');
+});
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log("Express server listening on port " + app.get('port'));

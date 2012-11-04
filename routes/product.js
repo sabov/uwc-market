@@ -47,8 +47,15 @@ var _createProductWithI18n = function (params, callback) {
     });
 };
 
+var isNumber = function (n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 //combine ru and ua version of product, for back office view
 var _combineI18nProducts = function (products) {
+    if (!products.length) {
+        return;
+    }
     var hybridProduct = products[0],
         isRuI18n = (products[0].language_id && dbConstants.RU_ID);
     hybridProduct.title_ru = isRuI18n ? products[0].title : products[1].title;
@@ -188,10 +195,19 @@ var actions = {
 
     edit: function (req, res, view) {
         var params = req.body,
-            product;
-
+            product,
+            productId;
+        productId = +req.route.params.product_id;
+        if (!isNumber(productId)){
+            res.redirect('/');
+            return;
+        }
         params.product_id =  req.route.params.product_id;
         modelProduct.getProductById(params, function (products) {
+            if (!products.length) {
+                res.redirect('/');
+                return;
+            }
             var paramsObject = [];
             product = _combineI18nProducts(products);
             if (product.params){
