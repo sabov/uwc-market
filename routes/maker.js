@@ -64,6 +64,10 @@ module.exports = {
         var params = req.body;
         params.maker_id = req.route.params.maker_id;
         modelMaker.getMakerById(params, function (maker) {
+            if (!maker.length) {
+                res.redirect('/maker');
+                return;
+            }
             maker.maker_id = params.maker_id;
             res.render('maker/_edit', {
                 maker: maker

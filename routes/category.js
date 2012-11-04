@@ -78,8 +78,11 @@ module.exports = {
             category;
         params.category_id = req.route.params.category_id;
         modelCategory.getCategoryById(params, function (categories) {
+            if (!categories.length) {
+                res.redirect('/category');
+                return;
+            }
             category = _combineI18nCategories(categories);
-            console.log(category);
             res.render('category/_edit', {
                 category: category
             });

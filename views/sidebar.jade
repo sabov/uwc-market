@@ -2,7 +2,7 @@ nav.span3
   .well.sidebar-holder
     if session.role == 'admin'
       form.btn-holder(action='/', method='POST')
-        input.btn.btn-primary.btn-block(type='submit', value='CreateProduct')
+        input.btn.btn-primary.btn-block(type='submit', value='#{__i.CreateProduct}')
     ul.nav.nav-list
       li.nav-header= __i.Categories
       if categories
