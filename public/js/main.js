@@ -6,10 +6,8 @@ require.config({
         cookie : '/js/lib/jquery.cookie',
         bootstrap  : '/js/lib/bootstrap',
         less       : '/js/lib/less-1.3.1.min',
-        dropdown   : '/js/lib/dropdown',
 
         /*    Application    */
-        config : '/js/app/config',
         i18n   : '/js/app/i18n',
         app    : '/js/app/app',
         block  : '/js/app/block'
@@ -22,11 +20,9 @@ require.config({
         app : {
             deps : [
                 'bootstrap',
-                'underscore',
-                'dropdown',
-                'config',
                 'validator',
                 'i18n',
+                'less',
                 'cookie',
                 'block'
             ]
