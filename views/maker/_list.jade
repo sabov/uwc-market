@@ -25,7 +25,6 @@ block content
               each maker in makers
                 tr
                   td
-                    a(href='')= maker.name
-                  td
+                    a(href='#{'/maker/update/' + maker.id}')= maker.name
                   td.table-item-delete
                     a(href='#{'/' + name + '/delete/' + maker.id }') ×
