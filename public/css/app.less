@@ -72,11 +72,20 @@ form {
   z-index: 1;
   overflow: hidden;
   padding: 5px;
+  width:268px;
+  text-overflow: ellipsis;
+  text-decoration: none;
+}
+.block-title {
+  font-size: 22px;
+  text-shadow: 1px 1px rgba(255,255,255,0.3);
+  text-align: center;
+  display:block;
+  margin: 10px;
 }
 .block-gallary {
   position: relative;
   height: 200px;
-  width: 268px;
 }
 .block-controls {
   z-index: 3;
@@ -125,23 +134,32 @@ form {
   top: 0%;
   height: 30%;
   background: rgba(13,13,13,0.5);
+  overflow: hidden;
 }
 .block-description p {
   padding: 10px;
   text-align: center;
   color:#FFFFFF;
   text-shadow: 1px 1px rgba(0,0,0,0.5);
+  text-overflow: ellipsis;
 }
 .block ul {
   margin:0
+}
+.block ul img {
+  height:200px;
+  width:auto;
+  margin: 0 auto;
 }
 .block-title-holder {
   height:50px;
   padding: 10px;
 }
-.block-title-holder h2{
-  text-shadow: 1px 1px rgba(255,255,255,0.3);
-  text-align: center;
+.block-btn-holder {
+  position:absolute;
+  top:4px;
+  right:3px;
+  z-index: 100;
 }
 .btn-holder {
   padding:10px;
@@ -167,4 +185,7 @@ form {
         text-decoration:none;
       }
   }
+}
+.carousel {
+  margin-bottom:0;
 }

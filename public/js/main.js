@@ -11,8 +11,9 @@ require.config({
 
         /*    Application    */
         config : '/js/app/config',
-        i18n : '/js/app/i18n',
-        app    : '/js/app/app'
+        i18n   : '/js/app/i18n',
+        app    : '/js/app/app',
+        block  : '/js/app/block'
     },
 
     shim: {
@@ -27,8 +28,12 @@ require.config({
                 'config',
                 'validator',
                 'i18n',
-                'cookie'
+                'cookie',
+                'block'
             ]
+        },
+        block : {
+            deps : ['jquery']
         },
         dropdown : {
             deps : ['jquery']
