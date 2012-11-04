@@ -3,31 +3,29 @@ extends ../layout
 block content
   section.container
     section.row
-      ul.nav.nav-tabs
-        li
-          a(href='/category')= __i.Categories
-        li.active
-          a(href='/maker')= __i.Makers
-        li
-          a(href='/')= __i.Products
-      h2.pull-left= nameI18n
-      a.btn.btn-danger.pull-right(href='')
-        i.icon-trash
-        | Delete Selected
-      form(action='/maker', method='POST')
-        button.btn.btn-primary.pull-right(type='submit', style='margin-right: 4px;')
-          i.icon-plus
-          = __i.CreateMaker
-      table.table.table-striped
-        thead
-          tr
-            td= __i.Title
-        tbody
-          if makers
-            each maker in makers
-              tr
-                td
-                  a(href='')= maker.name
-                td
-                td.table-item-delete
-                  a(href='#{'/' + name + '/delete/' + maker.id }') ×
+      div.span12
+        ul.nav.nav-tabs
+          li
+            a(href='/category')= __i.Categories
+          li.active
+            a(href='/maker')= __i.Makers
+          li
+            a(href='/')= __i.Products
+        h2.pull-left= nameI18n
+        form(action='/maker', method='POST')
+          button.btn.btn-primary.pull-right(type='submit', style='margin-right: 4px;')
+            i.icon-plus
+            = __i.CreateMaker
+        table.table.table-striped
+          thead
+            tr
+              td= __i.Title
+          tbody
+            if makers
+              each maker in makers
+                tr
+                  td
+                    a(href='')= maker.name
+                  td
+                  td.table-item-delete
+                    a(href='#{'/' + name + '/delete/' + maker.id }') ×

@@ -65,9 +65,4 @@ header.navbar.navbar-static-top
                         input(type='password', name='password', placeholder= __i.Password)
                         button.btn.btn-primary(type='submit')= __i.Enter
           if session.role == 'admin'
-            li
-              a.username(href='/category') Admin
-            li.divider-vertical
-            form(action='/', method='POST')
-              input(type='submit', value='CreateProduct')
 
