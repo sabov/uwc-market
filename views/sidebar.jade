@@ -1,7 +1,8 @@
 nav.span3
   .well.sidebar-holder
-    form.form-search
-      input.search-query(placeholder= __i.Search, type='text')
+    if session.role == 'admin'
+      form.btn-holder(action='/', method='POST')
+        input.btn.btn-primary.btn-block(type='submit', value='CreateProduct')
     ul.nav.nav-list
       li.nav-header= __i.Categories
       if categories

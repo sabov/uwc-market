@@ -3,6 +3,16 @@ extends ../layout
 block content
   section.container
     section.row
+      .span12
+        if session.role == 'admin'
+          ul.nav.nav-tabs
+            li
+              a(href='/category')= __i.Categories
+            li
+              a(href='/maker')= __i.Makers
+            li.active
+              a(href='/')= __i.Products
+    section.row
       include ../sidebar
       section.span9
         if products
