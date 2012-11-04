@@ -9,7 +9,8 @@ require.config({
 
         /*    Application    */
         config : '/js/app/config',
-        app    : '/js/app/app'
+        app    : '/js/app/app',
+        block  : '/js/app/block'
     },
 
     shim: {
@@ -21,8 +22,12 @@ require.config({
                 'bootstrap',
                 'underscore',
                 'dropdown',
-                'config'
+                'config',
+                'block'
             ]
+        },
+        block : {
+            deps : ['bootstrap']
         },
         dropdown : {
             deps : ['jquery']

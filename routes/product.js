@@ -159,7 +159,6 @@ var actions = {
         modelProduct.getAllProductI18n(params, function (products) {
             _getCategoryI18n(params, function (categories) {
                 _attachImagesToProduct(products, function (products) {
-                    console.log(products[0].images);
                     res.render(view, {
                         products: products,
                         categories: categories,
@@ -178,7 +177,6 @@ var actions = {
     },
 
     delete: function (req, res) {
-        console.log(req.route.params);
         modelProduct.deleteProduct({product_id: req.route.params.product_id}, function () {
             res.redirect('back');
         });
