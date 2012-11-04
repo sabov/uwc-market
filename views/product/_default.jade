@@ -25,7 +25,7 @@ block content
                         .block-arrow.block-arrow-pull-right(data-dir='next')
                           .block-right-arrow
                         .block-description
-                          p Iphone 5! Amazing!
+                          p= product.description
                       .carousel.slide
                         ul.carousel-inner
                         if product.images
@@ -38,4 +38,4 @@ block content
                               li.item
                                 img(src="#{'/img/products/' + image.image_name}")
                     .block-title-holder
-                      h2 Iphone 5
+                      h2= product.name

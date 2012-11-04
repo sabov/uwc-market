@@ -11,14 +11,14 @@ block content
               a(href='/maker')= __i.Makers
             li
               a(href='/')= __i.Products
-        form(action='#{'/maker/update/' + maker.maker_id}', method='POST', class="form-horizontal")
-          fieldset
-            legend= __i.NewMaker
-            .control-group
-              label.control-label= __i.Title
-                | &nbsp;RU
-              .controls
-                input(type='text', name="name", value=maker.name)
-            .form-actions
-              button.btn.btn-primary(type='submit')= __i.Save
-              a.btn(href='#{'/maker/delete/' + maker.maker_id }')= __i.Cancel
+          form(action='#{'/maker/update/' + maker.maker_id}', method='POST', class="form-horizontal")
+            fieldset
+              legend= __i.NewMaker
+              .control-group
+                label.control-label= __i.Title
+                  | &nbsp;RU
+                .controls
+                  input(type='text', name="name", value=maker.name)
+              .form-actions
+                button.btn.btn-primary(type='submit')= __i.Save
+                a.btn(href='#{'/maker/delete/' + maker.maker_id }')= __i.Delete
